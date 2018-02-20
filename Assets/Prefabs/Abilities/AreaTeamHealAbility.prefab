@@ -59,5 +59,8 @@ MonoBehaviour:
   uses: 1
   abilityName: Team Heal
   healAmount: 0.35
-  healParticleEffect: {fileID: 1773824837707892, guid: c80238eb65306204695b857597f81586,
+  healParticleEffect: {fileID: 1068578206656008, guid: 6c75bda02b40fbd498b52c1a85f6a3ea,
     type: 2}
+  euler_x: 0
+  euler_y: 0
+  euler_z: 0
