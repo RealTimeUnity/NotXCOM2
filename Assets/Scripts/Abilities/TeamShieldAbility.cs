@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TeamShieldAbility : Ability
 {
+    public GameObject selfShieldAbilityPrefab;
 
     // Use this for initialization
     void Start()
@@ -20,18 +21,22 @@ public class TeamShieldAbility : Ability
     public override void Execute(Target target)
     {
         base.Execute(target);
+
         for (int i = 0; i < owner.owner.friendlies.Count; i++)
         {
             float distance = Mathf.Sqrt(Mathf.Pow((owner.owner.friendlies[i].gameObject.transform.position.x - this.owner.gameObject.transform.position.x), 2) +
                     Mathf.Pow((owner.owner.friendlies[i].gameObject.transform.position.z - this.owner.gameObject.transform.position.z), 2));
             if (distance < 30)
             {
-                SelfShieldAbility other = owner.owner.friendlies[i].gameObject.GetComponent<SelfShieldAbility>();
-                if (!other) {
-                     other = owner.owner.friendlies[i].gameObject.AddComponent<SelfShieldAbility>();
-                   
+                if (owner.owner.friendlies[i].HasAbility("Self Shield")) {
+                    ((SelfShieldAbility)owner.owner.friendlies[i].GetAbility("Self Shield")).AddShield();
                 }
-                other.Execute(null);
+                else
+                {
+                    SelfShieldAbility a = Instantiate(selfShieldAbilityPrefab).GetComponent<SelfShieldAbility>();
+                    owner.owner.friendlies[i].abilities.Add(a);
+                    a.AddShield();
+                }
             }
         }
     }

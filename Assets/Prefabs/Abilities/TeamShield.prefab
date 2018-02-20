@@ -58,3 +58,5 @@ MonoBehaviour:
   range: 30
   uses: 1
   abilityName: Team Shield
+  selfShieldAbilityPrefab: {fileID: 1974391447852890, guid: 0b985b58e76435b41bf4669bf12c915e,
+    type: 2}

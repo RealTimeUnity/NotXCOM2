@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c209d1f9ae712fd4e97b203a83045c96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
   targetType: 4
   type: 2
   useType: 0
@@ -60,3 +61,6 @@ MonoBehaviour:
   ShieldActive: 0
   MaxShieldHealth: 100
   CurrentShieldHealth: 0
+  shieldPrefab: {fileID: 1797251160482950, guid: 2b17f1c6574a8f14f812d9c2dfa0cf60,
+    type: 2}
+  shieldInstance: {fileID: 0}
