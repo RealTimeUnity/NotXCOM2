@@ -27,7 +27,7 @@ public class SelfHealAbility : Ability
             this.owner.currentHealth = this.owner.MaxHealth;
         }
         // create the heal particles
-        GameObject healParticles = Instantiate(healParticleEffect, characterGameObject.transform.position, Quaternion.identity);
+        GameObject healParticles = Instantiate(healParticleEffect, characterGameObject.transform.position + new Vector3(0, 2.5f, 0), Quaternion.Euler(-90, 0, 0));
         // set the heal particles to be destroyed in 4 seconds
         Destroy(healParticles, 4.0F);
     }

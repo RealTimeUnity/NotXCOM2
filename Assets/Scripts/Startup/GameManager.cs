@@ -1,47 +1,56 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
     
     [SerializeField]
-    private CharacterController humanPlayer;
+    private CharacterController playerOne;
     [SerializeField]
-    private CharacterController computerPlayer;
+    private CharacterController playerTwo;
 
-    private PlayerType currentPlayer;
+    public Text nextPlayerText;
+
+    protected int playerNumber;
     
     public void Start()
     {
-        currentPlayer = PlayerType.Computer;
-        computerPlayer.StartTurn();
+        playerNumber = 2;
+        FinishTurn();
     }
 
     public void SpawnWave(WaveLoader waveLoader)
     {
-        humanPlayer.CreateFriendlyCharacters(waveLoader.GetRandomSpawnPoint());
-        computerPlayer.CreateFriendlyCharacters(waveLoader.GetRandomSpawnPoint());
+        playerOne.CreateFriendlyCharacters(waveLoader.GetRandomSpawnPoint());
+        playerTwo.CreateFriendlyCharacters(waveLoader.GetRandomSpawnPoint());
 
-        humanPlayer.SetEnemy(computerPlayer);
-        computerPlayer.SetEnemy(humanPlayer);
+        playerOne.SetEnemy(playerTwo);
+        playerTwo.SetEnemy(playerOne);
+    }
+
+    IEnumerator Wait(CharacterController player)
+    {
+        yield return new WaitForSeconds(2);
+        nextPlayerText.gameObject.SetActive(false);
+        player.StartTurn();
     }
 
     public void FinishTurn()
     {
-        if (currentPlayer == PlayerType.Human)
+        if (playerNumber == 1)
         {
-            currentPlayer = PlayerType.Computer;
-            computerPlayer.StartTurn();
+            playerNumber = 2;
+            nextPlayerText.text = "Player Two: Start Turn";
+            nextPlayerText.gameObject.SetActive(true);
+            StartCoroutine(Wait(playerTwo));
         }
         else
         {
-            currentPlayer = PlayerType.Human;
-            humanPlayer.StartTurn();
+            playerNumber = 1;
+            nextPlayerText.text = "Player One: Start Turn";
+            nextPlayerText.gameObject.SetActive(true);
+            StartCoroutine(Wait(playerOne));
         }
     }
-}
-enum PlayerType
-{
-    Human,
-    Computer
 }

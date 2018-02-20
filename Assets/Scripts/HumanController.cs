@@ -132,7 +132,7 @@ public class HumanController : CharacterController
         switch (this.phase)
         {
             case TurnPhase.SelectCharacter:
-                if (!selectUIUpdated)
+                if (!selectUIUpdated && this.friendlies.Count > 0)
                 {
                     characterSelectUI.GetComponentInParent<CharacterSelectUI>().UpdateList(this);
                     this.selectUIUpdated = true;
@@ -144,7 +144,26 @@ public class HumanController : CharacterController
             case TurnPhase.SelectAbility:
                 characterSelectUI.SetActive(false);
                 combatUI.SetActive(true);
+                combatUI.GetComponentInParent<ButtonScript>().Initialize(this);
                 this.selectUIUpdated = false;
+                break;
+            case TurnPhase.End:
+                characterSelectUI.SetActive(false);
+                combatUI.SetActive(false);
+
+                MeshRenderer mr;
+                for (int i = 0; i < this.friendlies.Count; ++i)
+                {
+                    mr = this.friendlies[i].GetComponent<MeshRenderer>();
+                    if (mr == null)
+                    {
+                        this.friendlies[i].GetComponentInChildren<SkinnedMeshRenderer>().material.SetInt("_Highlighted", 0);
+                    }
+                    else
+                    {
+                        mr.material.SetInt("_Highlighted", 0);
+                    }
+                }
                 break;
         }
         
