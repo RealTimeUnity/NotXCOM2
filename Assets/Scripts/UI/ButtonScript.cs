@@ -37,7 +37,7 @@ public class ButtonScript : MonoBehaviour {
     protected int current_button = -1;
 
 	void Start () {
-        hugh_man = FindObjectOfType<HumanController>();
+        hugh_man = null;
 
         backGround = this.GetComponentInChildren<Image>(true);
         Slider[] sliders = backGround.gameObject.GetComponentsInChildren<Slider>(true);
@@ -54,6 +54,11 @@ public class ButtonScript : MonoBehaviour {
         cancelText = text[7];
         nameText = text[0];
         healthSlider = sliders[0];
+    }
+
+    public void Initialize(HumanController hc)
+    {
+        hugh_man = hc;
     }
 
     int buttonRollCall()
@@ -143,71 +148,73 @@ public class ButtonScript : MonoBehaviour {
         }
     }
 
-	// Update is called once per frame
-	void Update ()
+    // Update is called once per frame
+    void Update()
     {
-        if (current_char != null)
+        if (hugh_man != null)
         {
-            healthSlider.value = current_char.currentHealth;
-            majorText.text = current_char.numMajorAbilities.ToString();
-            minorText.text = current_char.numMinorAbilities.ToString();
-        }
+            if (current_char != null)
+            {
+                healthSlider.value = current_char.currentHealth;
+                majorText.text = current_char.numMajorAbilities.ToString();
+                minorText.text = current_char.numMinorAbilities.ToString();
+            }
 
-        switch (curr_phase)
-        {
-            case CombatPhase.None:
-                if (hugh_man.subjectIndex != -1)
-                {
-                    this.backGround.gameObject.SetActive(true);
-                    if (hugh_man.subjectIndex != prev_index)
+            switch (curr_phase)
+            {
+                case CombatPhase.None:
+                    if (hugh_man.subjectIndex != -1)
                     {
-                        updateInfo();
-                        prev_index = hugh_man.subjectIndex;
-                        curr_phase = CombatPhase.ActionSelection;
+                        this.backGround.gameObject.SetActive(true);
+                        if (hugh_man.subjectIndex != prev_index)
+                        {
+                            updateInfo();
+                            prev_index = hugh_man.subjectIndex;
+                            curr_phase = CombatPhase.ActionSelection;
+                        }
                     }
-                }
-                else
-                {
-                    this.backGround.gameObject.SetActive(false);
-                }
-                break;
-            case CombatPhase.ActionSelection:
-                if(hugh_man.subjectIndex == -1 || hugh_man.subjectIndex != prev_index)
-                {
+                    else
+                    {
+                        this.backGround.gameObject.SetActive(false);
+                    }
+                    break;
+                case CombatPhase.ActionSelection:
+                    if (hugh_man.subjectIndex == -1 || hugh_man.subjectIndex != prev_index)
+                    {
+                        curr_phase = CombatPhase.None;
+                    }
+
+                    for (int i = 0; i < current_char.abilities.Count; i++)
+                    {
+                        Ability ability = current_char.GetAbility(abilityTexts[i].text);
+                        useTexts[i].text = ability.uses.ToString();
+                        if (ability.uses <= 0 || (ability.type == Ability.AbilityType.Major && current_char.numMajorAbilities <= 0) || (ability.type == Ability.AbilityType.Minor && current_char.numMinorAbilities <= 0))
+                        {
+                            abilityButtons[i].interactable = false;
+                        }
+                    }
+                    endTurnButton.interactable = true;
+                    break;
+                case CombatPhase.TargetSelection:
+                    if (buttonRollCall() != 1)
+                    {
+                        for (int i = 0; i < max_abilities; i++)
+                        {
+                            abilityButtons[i].interactable = false;
+                        }
+                        abilityButtons[current_button].interactable = true;
+                    }
+
+                    cancelButton.interactable = true;
+                    endTurnButton.interactable = false;
+                    break;
+                case CombatPhase.ActionExecution:
+                    //wait for an undetermined ammount of time
+                    cancelButton.interactable = false;
+                    prev_index = -1;
                     curr_phase = CombatPhase.None;
-                }
-
-
-                for (int i = 0; i < current_char.abilities.Count; i++)
-                {
-                    Ability ability = current_char.GetAbility(abilityTexts[i].text);
-                    useTexts[i].text = ability.uses.ToString();
-                    if (ability.uses <= 0 || (ability.type == Ability.AbilityType.Major && current_char.numMajorAbilities <= 0) || (ability.type == Ability.AbilityType.Minor && current_char.numMinorAbilities <= 0))
-                    {
-                        abilityButtons[i].interactable = false;
-                    }
-                }
-                endTurnButton.interactable = true;
-                break;
-            case CombatPhase.TargetSelection:
-                if(buttonRollCall() != 1)
-                {
-                    for(int i = 0; i < max_abilities; i++)
-                    {
-                        abilityButtons[i].interactable = false;
-                    }
-                    abilityButtons[current_button].interactable = true;
-                }
-                
-                cancelButton.interactable = true;
-                endTurnButton.interactable = false;
-                break;
-            case CombatPhase.ActionExecution:
-                //wait for an undetermined ammount of time
-                cancelButton.interactable = false;
-                prev_index = -1;
-                curr_phase = CombatPhase.None;
-                break;
+                    break;
+            }
         }
     }
 }

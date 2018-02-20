@@ -49,6 +49,8 @@ public abstract class CharacterController : MonoBehaviour
         for (int i = 0; i < this.friendlies.Count; ++i)
         {
             this.friendlies[i].hasHadTurn = false;
+            this.friendlies[i].numMajorAbilities = this.friendlies[i].maxMajorAbilities;
+            this.friendlies[i].numMinorAbilities = this.friendlies[i].maxMinorAbilities;
         }
 
         FindObjectOfType<GameManager>().FinishTurn();
