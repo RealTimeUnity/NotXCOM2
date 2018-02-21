@@ -7,10 +7,7 @@ public abstract class CharacterController : MonoBehaviour
 {
     public enum TurnPhase { None, Begin, SelectCharacter, SelectAbility, SelectTarget, Execution, End }
 
-    public int numberCharacters;
-
-    public GameObject characterPrefab;
-    public List<string> names;
+    public List<Character> characterPrefabs;
 
     [HideInInspector]
     public List<Character> friendlies { get; set; }
@@ -33,12 +30,13 @@ public abstract class CharacterController : MonoBehaviour
 
     public void Start()
     {
+        this.friendlies = new List<Character>();
         Initialize();
     }
 
     public void Initialize()
     {
-        this.friendlies = null;
+        this.friendlies = new List<Character>();
         this.enemy = null;
         this.phase = TurnPhase.None;
         this.subjectIndex = -1;
@@ -55,15 +53,13 @@ public abstract class CharacterController : MonoBehaviour
     
     public void CreateFriendlyCharacters(SpawnPoint spawnPoint)
     {
-        this.friendlies = new List<Character>();
-        for (int i = 0; i < numberCharacters; ++i)
+        for (int i = 0; i < this.characterPrefabs.Count; ++i)
         {
-            Character newCharacter = Instantiate(characterPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation).GetComponent<Character>();
+            Character newCharacter = Instantiate(characterPrefabs[i], spawnPoint.transform.position, spawnPoint.transform.rotation).GetComponent<Character>();
             float randomX = Random.Range(-5, 5);
             float randomY = Random.Range(-5, 5);
             newCharacter.transform.Translate(new Vector3(randomX, randomY, 0));
             newCharacter.owner = this;
-            newCharacter.Name = names[i];
             this.friendlies.Add(newCharacter);
         }
     }
@@ -198,9 +194,12 @@ public abstract class CharacterController : MonoBehaviour
         }
 
         // Check win condition
-        if (this.enemy.friendlies.Count <= 0 && this.friendlies.Count > 0)
+        if (this.enemy != null)
         {
-            StartCoroutine(FindObjectOfType<GameManager>().EndGame(this));
+            if (this.enemy.friendlies.Count <= 0 && this.friendlies.Count > 0)
+            {
+                StartCoroutine(FindObjectOfType<GameManager>().EndGame(this));
+            }
         }
     }
 
