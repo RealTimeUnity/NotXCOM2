@@ -303,13 +303,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="NotXCOM2.Plugins.csproj">
-      <Project>{DD1CB3B7-88FF-310D-0626-0F47ECD5A1FB}</Project>
-      <Name>NotXCOM2.Plugins</Name>
-    </ProjectReference>
     <ProjectReference Include="NotXCOM2.csproj">
       <Project>{9913A3DE-13AA-88BA-C309-EBEE9C2B6171}</Project>
       <Name>NotXCOM2</Name>
+    </ProjectReference>
+    <ProjectReference Include="NotXCOM2.Plugins.csproj">
+      <Project>{DD1CB3B7-88FF-310D-0626-0F47ECD5A1FB}</Project>
+      <Name>NotXCOM2.Plugins</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
