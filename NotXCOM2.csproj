@@ -288,6 +288,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\LevelSelectButtons.cs" />
     <Compile Include="Assets\Scripts\Abilities\Ability.cs" />
     <Compile Include="Assets\Scripts\Abilities\AreaTeamHealAbility.cs" />
     <Compile Include="Assets\Scripts\Abilities\GrenadeAbility.cs" />
@@ -305,7 +306,9 @@
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\CharacterController.cs" />
     <Compile Include="Assets\Scripts\HumanController.cs" />
+    <Compile Include="Assets\Scripts\Startup\ExitButton.cs" />
     <Compile Include="Assets\Scripts\Startup\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Startup\LevelSelectButton.cs" />
     <Compile Include="Assets\Scripts\Startup\PersistentObject.cs" />
     <Compile Include="Assets\Scripts\Startup\PreloadSceneFinish.cs" />
     <Compile Include="Assets\Scripts\Startup\ScenePreLoader.cs" />

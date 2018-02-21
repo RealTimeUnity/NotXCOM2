@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -223,138 +223,51 @@ Prefab:
     - target: {fileID: 114398633072153604, guid: 63eb78667847c8640b6b22eb2647b9f1,
         type: 2}
       propertyPath: m_Color.r
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114398633072153604, guid: 63eb78667847c8640b6b22eb2647b9f1,
         type: 2}
       propertyPath: m_Color.g
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114398633072153604, guid: 63eb78667847c8640b6b22eb2647b9f1,
         type: 2}
       propertyPath: m_Color.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114745972748411634, guid: 63eb78667847c8640b6b22eb2647b9f1,
         type: 2}
       propertyPath: m_Color.r
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114745972748411634, guid: 63eb78667847c8640b6b22eb2647b9f1,
         type: 2}
       propertyPath: m_Color.g
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114745972748411634, guid: 63eb78667847c8640b6b22eb2647b9f1,
         type: 2}
       propertyPath: m_Color.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114632875035352458, guid: 63eb78667847c8640b6b22eb2647b9f1,
         type: 2}
       propertyPath: m_Color.r
-      value: 0
+      value: 0.997
       objectReference: {fileID: 0}
     - target: {fileID: 114632875035352458, guid: 63eb78667847c8640b6b22eb2647b9f1,
         type: 2}
       propertyPath: m_Color.g
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114632875035352458, guid: 63eb78667847c8640b6b22eb2647b9f1,
         type: 2}
       propertyPath: m_Color.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1086512863848228, guid: 63eb78667847c8640b6b22eb2647b9f1, type: 2}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114852221444752764, guid: 63eb78667847c8640b6b22eb2647b9f1,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 4635081428fed5c449bd754357d52424,
-        type: 3}
-    - target: {fileID: 114852221444752764, guid: 63eb78667847c8640b6b22eb2647b9f1,
-        type: 2}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114398633072153604, guid: 63eb78667847c8640b6b22eb2647b9f1,
-        type: 2}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114080967986593676, guid: 63eb78667847c8640b6b22eb2647b9f1,
-        type: 2}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114745972748411634, guid: 63eb78667847c8640b6b22eb2647b9f1,
-        type: 2}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114745972748411634, guid: 63eb78667847c8640b6b22eb2647b9f1,
-        type: 2}
-      propertyPath: m_Text
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114160806053509512, guid: 63eb78667847c8640b6b22eb2647b9f1,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 54e5dfe93796a554089a1c67145ecf65,
-        type: 3}
-    - target: {fileID: 114160806053509512, guid: 63eb78667847c8640b6b22eb2647b9f1,
-        type: 2}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114160806053509512, guid: 63eb78667847c8640b6b22eb2647b9f1,
-        type: 2}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114160806053509512, guid: 63eb78667847c8640b6b22eb2647b9f1,
-        type: 2}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114160806053509512, guid: 63eb78667847c8640b6b22eb2647b9f1,
-        type: 2}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114667580787295960, guid: 63eb78667847c8640b6b22eb2647b9f1,
-        type: 2}
-      propertyPath: m_Colors.m_NormalColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114667580787295960, guid: 63eb78667847c8640b6b22eb2647b9f1,
-        type: 2}
-      propertyPath: m_Colors.m_NormalColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114667580787295960, guid: 63eb78667847c8640b6b22eb2647b9f1,
-        type: 2}
-      propertyPath: m_Colors.m_NormalColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114621421320711980, guid: 63eb78667847c8640b6b22eb2647b9f1,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 54e5dfe93796a554089a1c67145ecf65,
-        type: 3}
-    - target: {fileID: 114621421320711980, guid: 63eb78667847c8640b6b22eb2647b9f1,
-        type: 2}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1929116876356594, guid: 63eb78667847c8640b6b22eb2647b9f1, type: 2}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 63eb78667847c8640b6b22eb2647b9f1, type: 2}
@@ -549,7 +462,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerOne: {fileID: 603197625}
   playerTwo: {fileID: 313655189}
-  nextPlayerText: {fileID: 1818066424}
+  screenText: {fileID: 1818066424}
+  combatUI: {fileID: 1761244622}
+  selectUI: {fileID: 491481557}
 --- !u!4 &605135621
 Transform:
   m_ObjectHideFlags: 0
@@ -937,129 +852,6 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114686404191134198, guid: 3c94954e7b60bc840817fcec8350205c,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 4635081428fed5c449bd754357d52424,
-        type: 3}
-    - target: {fileID: 114686404191134198, guid: 3c94954e7b60bc840817fcec8350205c,
-        type: 2}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114686404191134198, guid: 3c94954e7b60bc840817fcec8350205c,
-        type: 2}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114686404191134198, guid: 3c94954e7b60bc840817fcec8350205c,
-        type: 2}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114686404191134198, guid: 3c94954e7b60bc840817fcec8350205c,
-        type: 2}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114686404191134198, guid: 3c94954e7b60bc840817fcec8350205c,
-        type: 2}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1919114671047804, guid: 3c94954e7b60bc840817fcec8350205c, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114643236485815632, guid: 3c94954e7b60bc840817fcec8350205c,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 5541d822d96596946a9dfde41f944213,
-        type: 3}
-    - target: {fileID: 114643236485815632, guid: 3c94954e7b60bc840817fcec8350205c,
-        type: 2}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114213132537098476, guid: 3c94954e7b60bc840817fcec8350205c,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 5541d822d96596946a9dfde41f944213,
-        type: 3}
-    - target: {fileID: 114213132537098476, guid: 3c94954e7b60bc840817fcec8350205c,
-        type: 2}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114767099892144878, guid: 3c94954e7b60bc840817fcec8350205c,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 5541d822d96596946a9dfde41f944213,
-        type: 3}
-    - target: {fileID: 114767099892144878, guid: 3c94954e7b60bc840817fcec8350205c,
-        type: 2}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114819542180292774, guid: 3c94954e7b60bc840817fcec8350205c,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 5541d822d96596946a9dfde41f944213,
-        type: 3}
-    - target: {fileID: 114819542180292774, guid: 3c94954e7b60bc840817fcec8350205c,
-        type: 2}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114465452795685138, guid: 3c94954e7b60bc840817fcec8350205c,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 5541d822d96596946a9dfde41f944213,
-        type: 3}
-    - target: {fileID: 114465452795685138, guid: 3c94954e7b60bc840817fcec8350205c,
-        type: 2}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114265925788637602, guid: 3c94954e7b60bc840817fcec8350205c,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 5541d822d96596946a9dfde41f944213,
-        type: 3}
-    - target: {fileID: 114265925788637602, guid: 3c94954e7b60bc840817fcec8350205c,
-        type: 2}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114398503298412828, guid: 3c94954e7b60bc840817fcec8350205c,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 5541d822d96596946a9dfde41f944213,
-        type: 3}
-    - target: {fileID: 114398503298412828, guid: 3c94954e7b60bc840817fcec8350205c,
-        type: 2}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114163973517989522, guid: 3c94954e7b60bc840817fcec8350205c,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 5541d822d96596946a9dfde41f944213,
-        type: 3}
-    - target: {fileID: 114163973517989522, guid: 3c94954e7b60bc840817fcec8350205c,
-        type: 2}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3c94954e7b60bc840817fcec8350205c, type: 2}
   m_IsPrefabParent: 0
@@ -1084,7 +876,7 @@ GameObject:
   - component: {fileID: 1818066425}
   - component: {fileID: 1818066424}
   m_Layer: 5
-  m_Name: NextPlayerText
+  m_Name: ScreenText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

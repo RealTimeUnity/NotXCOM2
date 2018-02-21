@@ -7,7 +7,10 @@ public class Weapon : Ability {
     public int Damage;
 
     void Start()//Initializes stats
-    { }
+    {
+        var mod = gameObject;
+        mod.SetActive(false);
+    }
 
 	public int Aim(Target target)
     {
@@ -26,10 +29,22 @@ public class Weapon : Ability {
 		return accuracy;
 	}
 
+    IEnumerator EndFire()
+    {
+        yield return new WaitForSeconds(1);
+        var mod = gameObject;
+        mod.SetActive(false);
+    }
+
     // Attack Function
     public override void Execute(Target target)
     {
-		int dam = 0;
+        Vector3 targetPoint = new Vector3(target.GetCharacterTarget().transform.position.x, this.owner.transform.position.y, 
+            target.GetCharacterTarget().transform.position.z) - this.owner.transform.position;
+        this.owner.transform.rotation = Quaternion.LookRotation(targetPoint, Vector3.up);
+        var mod = gameObject;
+        mod.SetActive(true);
+        int dam = 0;
         int accuracy = Aim(target);
 		System.Random rand = new System.Random ();
 		int num = rand.Next (0, 100);
@@ -42,5 +57,6 @@ public class Weapon : Ability {
         }
         var exp = GetComponent<ParticleSystem>();
         exp.Play();
+        StartCoroutine(EndFire());
     }
 }

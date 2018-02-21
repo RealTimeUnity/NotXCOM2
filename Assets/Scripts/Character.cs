@@ -43,8 +43,8 @@ public class Character : MonoBehaviour {
 
     void Start()
     {
-        MaxHealth = 2;
-        currentHealth = 1;
+        MaxHealth = 100;
+        currentHealth = 100;
         this.abilities = new List<Ability>();
         for (int i = 0; i < this.abilityPrefabs.Count; ++i)
         {
@@ -62,6 +62,11 @@ public class Character : MonoBehaviour {
         healthbarPrefab.SetActive(true);
         healthbarValue = healthbar.GetComponentsInChildren<SpriteRenderer>()[1];
         baseHealthbarScale = healthbarValue.transform.localScale.x;
+    }
+
+    public void Die()
+    {
+        Destroy(this.gameObject);
     }
 
     public void Update()

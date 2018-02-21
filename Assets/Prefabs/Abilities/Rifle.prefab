@@ -100,10 +100,10 @@ MonoBehaviour:
   targetType: 2
   type: 1
   useType: 0
-  range: 50
+  range: 40
   uses: 1
   abilityName: Rifle
-  Damage: 25
+  Damage: 20
 --- !u!198 &198754759356544976
 ParticleSystem:
   m_ObjectHideFlags: 1
