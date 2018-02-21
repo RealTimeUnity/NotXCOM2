@@ -31,6 +31,21 @@ public class AiController : CharacterController
         return abilities[scoreInteger].abilityName;
     }
 
+    protected override void EndChildGame()
+    {
+        for (int i = 0; i < friendlies.Count; ++i)
+        {
+            try
+            {
+                friendlies[i].Die();
+            }
+            catch (MissingReferenceException e)
+            {
+            }
+        }
+        friendlies.Clear();
+    }
+
     protected override int GetSubjectIndex()
     {
         return this.subjectIndex + 1;
