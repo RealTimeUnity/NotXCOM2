@@ -101,7 +101,7 @@ MonoBehaviour:
   targetType: 2
   type: 1
   useType: 0
-  range: 100
+  range: 60
   uses: 1
   abilityName: Sniper
   Damage: 25

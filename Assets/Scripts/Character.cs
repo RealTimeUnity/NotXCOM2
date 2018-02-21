@@ -43,8 +43,8 @@ public class Character : MonoBehaviour {
 
     void Start()
     {
-        MaxHealth = 2;
-        currentHealth = 1;
+        MaxHealth = 100;
+        currentHealth = 100;
         this.abilities = new List<Ability>();
         for (int i = 0; i < this.abilityPrefabs.Count; ++i)
         {
