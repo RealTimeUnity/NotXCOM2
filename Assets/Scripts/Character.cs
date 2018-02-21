@@ -213,6 +213,6 @@ public class Character : MonoBehaviour {
             damage = shield.TakeDamage(damage);
         }
 
-        currentHealth -= damage;
+        currentHealth += damage;
     }
 }
