@@ -14,7 +14,7 @@ public class Weapon : Ability {
 
 	public int Aim(Target target)
     {
-        int accuracy = 0;
+        int accuracy = GameObject.Find("CoverCheckCam").GetComponent<CoverCheck>().getShoot(target.GetCharacterTarget().gameObject,this.gameObject);
 		if(!IsTargetInRange(owner, target))
 		{
             float distance = Vector3.Distance(owner.transform.position, target.GetCharacterTarget().transform.position);
