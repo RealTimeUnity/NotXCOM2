@@ -56,10 +56,12 @@ public abstract class CharacterController : MonoBehaviour
         FindObjectOfType<GameManager>().FinishTurn();
     }
 
+    protected abstract void EndChildGame();
+
     public void CreateFriendlyCharacters(SpawnPoint spawnPoint)
     {
         this.friendlies = new List<Character>();
-        for (int i = 0; i < 7; ++i)
+        for (int i = 0; i < 1; ++i)
         {
             GameObject newCharacter = Instantiate(characterPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
             float randomX = Random.Range(-5, 5);
@@ -87,21 +89,6 @@ public abstract class CharacterController : MonoBehaviour
     protected void UpdateTurn()
     {
         List<int> charactersToRemove = new List<int>();
-        for (int i = 0; i < this.friendlies.Count; ++i)
-        {
-            if (this.friendlies[i].currentHealth <= 0)
-            {
-                charactersToRemove.Add(i);
-            }
-        }
-        for (int i = 0; i < charactersToRemove.Count; ++i)
-        {
-            Character c = this.friendlies[charactersToRemove[i]];
-            this.friendlies.RemoveAt(charactersToRemove[i]);
-            Destroy(c.gameObject);
-        }
-
-        charactersToRemove.Clear();
         for (int i = 0; i < this.enemies.Count; ++i)
         {
             if (this.enemies[i].currentHealth <= 0)
@@ -112,8 +99,34 @@ public abstract class CharacterController : MonoBehaviour
         for (int i = 0; i < charactersToRemove.Count; ++i)
         {
             Character c = this.enemies[charactersToRemove[i]];
-            this.enemies.RemoveAt(charactersToRemove[i]);
-            Destroy(c.gameObject);
+            this.enemies.RemoveAt(charactersToRemove[i]); try
+            {
+                c.Die();
+            }
+            catch (MissingReferenceException e)
+            {
+                int x = 2;
+            }
+        }
+
+        charactersToRemove.Clear();
+        for (int i = 0; i < this.friendlies.Count; ++i)
+        {
+            try
+            {
+                GameObject go = this.friendlies[i].gameObject;
+            }
+            catch (MissingReferenceException e)
+            {
+                charactersToRemove.Add(i);
+            }
+        }
+        for (int i = 0; i < charactersToRemove.Count; ++i)
+        {
+            if (charactersToRemove[i] < enemies.Count)
+            {
+                this.enemies.RemoveAt(charactersToRemove[i]);
+            }
         }
 
         switch (this.phase)
@@ -205,6 +218,12 @@ public abstract class CharacterController : MonoBehaviour
                 this.EndTurn();
                 this.phase = TurnPhase.None;
                 break;
+        }
+
+        if (this.enemies.Count <= 0 && this.friendlies.Count > 0)
+        {
+            EndChildGame();
+            StartCoroutine(FindObjectOfType<GameManager>().EndGame(this));
         }
     }
 

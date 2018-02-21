@@ -64,6 +64,11 @@ public class Character : MonoBehaviour {
         baseHealthbarScale = healthbarValue.transform.localScale.x;
     }
 
+    public void Die()
+    {
+        Destroy(this.gameObject);
+    }
+
     public void Update()
     {
         anim.SetFloat("Forward", agent.velocity.magnitude / 3.0f);
