@@ -58,8 +58,8 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 2d61a7b9b321b9b48b79e7c134a7e883, type: 3}
-  - {fileID: 2100002, guid: 2d61a7b9b321b9b48b79e7c134a7e883, type: 3}
+  - {fileID: 2100000, guid: d6e69c018cdffbc43b28a1287250f581, type: 3}
+  - {fileID: 2100000, guid: 801b54d6a8aa23a4684fe7ee7e074df8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,7 +85,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1824718058852036}
-  m_Mesh: {fileID: 4300000, guid: 2d61a7b9b321b9b48b79e7c134a7e883, type: 3}
+  m_Mesh: {fileID: 4300000, guid: d6e69c018cdffbc43b28a1287250f581, type: 3}
 --- !u!114 &114563502326672070
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -101,7 +101,7 @@ MonoBehaviour:
   targetType: 2
   type: 1
   useType: 0
-  range: 100
+  range: 60
   uses: 1
   abilityName: Sniper
   Damage: 25

@@ -31,21 +31,6 @@ public class AiController : CharacterController
         return abilities[scoreInteger].abilityName;
     }
 
-    protected override void EndChildGame()
-    {
-        for (int i = 0; i < friendlies.Count; ++i)
-        {
-            try
-            {
-                friendlies[i].Die();
-            }
-            catch (MissingReferenceException e)
-            {
-            }
-        }
-        friendlies.Clear();
-    }
-
     protected override int GetSubjectIndex()
     {
         return this.subjectIndex + 1;
@@ -120,6 +105,107 @@ public class AiController : CharacterController
             }
             targets[abilityIndex].SetLocationTarget(dir);
             scores.Add(20);
+        }
+        if (abilityName == "Team Heal")
+        {
+            float healValue=0;
+            float healCount=0;
+            for (int i = 0; i < friendlies.Count; i++)
+            {
+                // Use Evan's function to get players within range
+                float distance = Mathf.Sqrt(Mathf.Pow((friendlies[i].transform.position.x - actor.transform.position.x), 2) +
+                        Mathf.Pow((friendlies[i].transform.position.z - actor.transform.position.z), 2));
+
+                // check to see if they're in the specified range
+                if (distance <= (float)actor.GetAbility(abilityName).range)
+                {
+                    // add heal amount to the player health
+                    healValue += (friendlies[i].MaxHealth - friendlies[i].currentHealth);
+                    healCount += 1;
+                }
+               
+            }
+
+            healCount = healCount * (9 / 10);
+            healValue = (healValue / healCount);
+            targets[abilityIndex].SetCharacterTarget(actor);
+            scores.Add((int)healValue);
+        }
+        if (abilityName == "Team Shield")
+        {
+
+            float shieldValue = 0;
+            for (int i = 0; i < friendlies.Count; i++)
+            {
+                // Use Evan's function to get players within range
+                float distance = Mathf.Sqrt(Mathf.Pow((friendlies[i].transform.position.x - actor.transform.position.x), 2) +
+                        Mathf.Pow((friendlies[i].transform.position.z - actor.transform.position.z), 2));
+
+                // check to see if they're in the specified range
+                if (distance <= (float)actor.GetAbility(abilityName).range)
+                {
+                    // add heal amount to the player health
+                    shieldValue += 10;
+                    shieldValue *=.9f;
+                }
+
+            }
+            targets[abilityIndex].SetCharacterTarget(actor);
+            scores.Add((int)shieldValue);
+
+        }
+        if (abilityName == "Self Shield")
+        {
+            int shieldScore = 0;
+            if (((SelfShieldAbility)actor.GetAbility(abilityName)).ShieldActive)
+            {
+                shieldScore += 10;
+            }
+
+            targets[abilityIndex].SetCharacterTarget(actor);
+            scores.Add((int)shieldScore);
+        }
+        if (abilityName == "Self Heal")
+        {
+            int healValue = 0;
+            if (actor.MaxHealth - actor.currentHealth < ((SelfHealAbility)actor.GetAbility(abilityName)).healAmount)
+            {
+                healValue = 40;
+                if (actor.currentHealth < actor.MaxHealth / 2)
+                {
+                    healValue += 20;
+                }
+            }
+            targets[abilityIndex].SetCharacterTarget(actor);
+            scores.Add(healValue);
+        }
+        if (abilityName == "Flame thrower" || abilityName == "Pistol" || abilityName == "Rifle" || abilityName == "Shotgun" || abilityName == "Sniper")
+        {
+            int maxValue = 0;
+            Character primaryVictim=new Character();
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                Character victim = enemies[i];
+                Target tempTarget=new Target();
+                tempTarget.SetTargetType(Target.TargetType.Enemy);
+                tempTarget.SetCharacterTarget(victim);
+                int hurtValue = 0;
+                int accuracy = ((Weapon)actor.GetAbility(abilityName)).Aim(tempTarget);
+                int damage = ((Weapon)actor.GetAbility(abilityName)).Damage;
+                hurtValue = (accuracy / 100) * damage;
+                if (damage > victim.currentHealth)
+                {
+                    hurtValue = hurtValue * 2 + 10;
+                }
+                if (hurtValue > maxValue)
+                {
+                    maxValue = hurtValue;
+                    primaryVictim = victim;
+                }
+            }
+            targets[abilityIndex].SetCharacterTarget(primaryVictim);
+            scores.Add(maxValue);
+
         }
     }
     protected int magicalHurtFormula(Character actor, Character victim)
