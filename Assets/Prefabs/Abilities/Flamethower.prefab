@@ -215,7 +215,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1628047300155022}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.5, y: 1, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 4951141432361476}
@@ -415,6 +415,7 @@ MonoBehaviour:
   range: 15
   uses: 1
   abilityName: Flame thrower
+  owner: {fileID: 0}
   Damage: 50
 --- !u!198 &198505043944050798
 ParticleSystem:
