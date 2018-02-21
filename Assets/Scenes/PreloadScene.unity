@@ -311,6 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b68e7ed60d277a84b951af556a8e5b3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numberCharacters: 7
   characterPrefab: {fileID: 1075979999297356, guid: b90c6a1dc395889429c9d491153b4608,
     type: 2}
   names:
@@ -321,6 +322,8 @@ MonoBehaviour:
   - Trent
   - Andrew
   - Brandon
+  enemy: {fileID: 0}
+  updating: 1
   phase: 0
   subjectIndex: 0
   locationIndicator: {fileID: 2023862147}
@@ -388,6 +391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b68e7ed60d277a84b951af556a8e5b3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numberCharacters: 7
   characterPrefab: {fileID: 1075979999297356, guid: b90c6a1dc395889429c9d491153b4608,
     type: 2}
   names:
@@ -398,6 +402,8 @@ MonoBehaviour:
   - Trent
   - Andrew
   - Brandon
+  enemy: {fileID: 0}
+  updating: 1
   phase: 0
   subjectIndex: 0
   locationIndicator: {fileID: 993954827}

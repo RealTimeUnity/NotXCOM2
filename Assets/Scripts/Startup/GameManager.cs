@@ -25,16 +25,17 @@ public class GameManager : MonoBehaviour {
         playerNumber = 2;
         playerOne.gameObject.SetActive(false);
         playerTwo.gameObject.SetActive(false);
-        selectUI.SetActive(false);
-        combatUI.SetActive(false);
     }
 
     public void SpawnWave(WaveLoader waveLoader)
     {
         playerOne.gameObject.SetActive(true);
         playerTwo.gameObject.SetActive(true);
-        selectUI.SetActive(false);
-        combatUI.SetActive(false);
+
+        playerOne.Initialize();
+        playerTwo.Initialize();
+        playerOne.updating = true;
+        playerTwo.updating = true;
 
         playerOne.CreateFriendlyCharacters(waveLoader.GetRandomSpawnPoint());
         playerTwo.CreateFriendlyCharacters(waveLoader.GetRandomSpawnPoint());
@@ -48,8 +49,6 @@ public class GameManager : MonoBehaviour {
 
     IEnumerator StartTurn(CharacterController player)
     {
-        selectUI.SetActive(false);
-        combatUI.SetActive(false);
         yield return new WaitForSeconds(2);
         screenText.gameObject.SetActive(false);
         player.StartTurn();
@@ -57,23 +56,32 @@ public class GameManager : MonoBehaviour {
 
     public IEnumerator EndGame(CharacterController player)
     {
+        playerOne.updating = false;
+        playerTwo.updating = false;
+
         if (player == playerOne)
-        {
-            screenText.text = "Player Two Wins!";
-        }
-        else
         {
             screenText.text = "Player One Wins!";
         }
+        else
+        {
+            screenText.text = "Player Two Wins!";
+        }
         screenText.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(0.01f);
+
+        combatUI.SetActive(false);
+        selectUI.SetActive(false);
+
         yield return new WaitForSeconds(2);
         screenText.gameObject.SetActive(false);
         SceneManager.LoadScene(MAIN_SCENE_NAME);
-        
+
+        combatUI.SetActive(false);
+        selectUI.SetActive(false);
         playerOne.gameObject.SetActive(false);
         playerTwo.gameObject.SetActive(false);
-        selectUI.SetActive(false);
-        combatUI.SetActive(false);
     }
 
     public void FinishTurn()

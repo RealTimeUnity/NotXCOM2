@@ -7,12 +7,18 @@ public abstract class CharacterController : MonoBehaviour
 {
     public enum TurnPhase { None, Begin, SelectCharacter, SelectAbility, SelectTarget, Execution, End }
 
+    public int numberCharacters;
+
     public GameObject characterPrefab;
     public List<string> names;
 
     [HideInInspector]
     public List<Character> friendlies { get; set; }
-    public List<Character> enemies;
+    [HideInInspector]
+    public CharacterController enemy;
+
+    [HideInInspector]
+    public bool updating = true;
 
     [HideInInspector]
     public TurnPhase phase;
@@ -26,9 +32,14 @@ public abstract class CharacterController : MonoBehaviour
     protected bool abilityConfirmed;
 
     public void Start()
-    {  
-        this.friendlies = new List<Character>();
-        this.enemies = new List<Character>();
+    {
+        Initialize();
+    }
+
+    public void Initialize()
+    {
+        this.friendlies = null;
+        this.enemy = null;
         this.phase = TurnPhase.None;
         this.subjectIndex = -1;
         this.abilityName = null;
@@ -41,104 +52,48 @@ public abstract class CharacterController : MonoBehaviour
     {
         this.phase = TurnPhase.Begin;
     }
-
-    protected void EndTurn()
-    {
-        this.subjectIndex = -1;
-
-        for (int i = 0; i < this.friendlies.Count; ++i)
-        {
-            this.friendlies[i].hasHadTurn = false;
-            this.friendlies[i].ResetTurn();
-        }
-
-        FindObjectOfType<GameManager>().FinishTurn();
-    }
-
-    protected abstract void EndChildGame();
-
+    
     public void CreateFriendlyCharacters(SpawnPoint spawnPoint)
     {
         this.friendlies = new List<Character>();
-        for (int i = 0; i < 1; ++i)
+        for (int i = 0; i < numberCharacters; ++i)
         {
-            GameObject newCharacter = Instantiate(characterPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
+            Character newCharacter = Instantiate(characterPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation).GetComponent<Character>();
             float randomX = Random.Range(-5, 5);
             float randomY = Random.Range(-5, 5);
             newCharacter.transform.Translate(new Vector3(randomX, randomY, 0));
-            newCharacter.GetComponent<Character>().owner = this;
-            newCharacter.GetComponent<Character>().Name = names[i];
-            this.friendlies.Add(newCharacter.GetComponent<Character>());
+            newCharacter.owner = this;
+            newCharacter.Name = names[i];
+            this.friendlies.Add(newCharacter);
         }
     }
 
     public void SetEnemy(CharacterController enemyController)
     {
-        for (int i = 0; i < enemyController.friendlies.Count; ++i)
-        {
-            this.enemies.Add(enemyController.friendlies[i]);
-        }
+        this.enemy = enemyController;
     }
 
     public void Update()
     {
-        this.UpdateTurn();
+        if (updating)
+        {
+            this.UpdateTurn();
+        }
     }
 
     protected void UpdateTurn()
     {
-        List<int> charactersToRemove = new List<int>();
-        for (int i = 0; i < this.enemies.Count; ++i)
-        {
-            if (this.enemies[i].currentHealth <= 0)
-            {
-                charactersToRemove.Add(i);
-            }
-        }
-        for (int i = 0; i < charactersToRemove.Count; ++i)
-        {
-            Character c = this.enemies[charactersToRemove[i]];
-            this.enemies.RemoveAt(charactersToRemove[i]); try
-            {
-                c.Die();
-            }
-            catch (MissingReferenceException e)
-            {
-                int x = 2;
-            }
-        }
-
-        charactersToRemove.Clear();
-        for (int i = 0; i < this.friendlies.Count; ++i)
-        {
-            try
-            {
-                GameObject go = this.friendlies[i].gameObject;
-            }
-            catch (MissingReferenceException e)
-            {
-                charactersToRemove.Add(i);
-            }
-        }
-        for (int i = 0; i < charactersToRemove.Count; ++i)
-        {
-            if (charactersToRemove[i] < enemies.Count)
-            {
-                this.enemies.RemoveAt(charactersToRemove[i]);
-            }
-        }
-
+        // Turn Progression
         switch (this.phase)
         {
             case TurnPhase.Begin:
                 this.phase = TurnPhase.SelectCharacter;
-                break;
+                    break;
             case TurnPhase.SelectCharacter:
                 int newSubjectIndex = this.GetSubjectIndex();
 
                 if (newSubjectIndex >= 0 && newSubjectIndex < this.friendlies.Count)
                 {
-                    this.friendlies[newSubjectIndex].ResetTurn();
                     this.subjectIndex = newSubjectIndex;
                     this.phase = TurnPhase.SelectAbility;
                 }
@@ -214,14 +169,36 @@ public abstract class CharacterController : MonoBehaviour
                 this.abilityConfirmed = false;
                 break;
             case TurnPhase.End:
-                this.EndTurn();
+                for (int i = 0; i < this.friendlies.Count; ++i)
+                {
+                    this.friendlies[i].ResetTurn();
+                }
+
+                FindObjectOfType<GameManager>().FinishTurn();
                 this.phase = TurnPhase.None;
+                break;
+            case TurnPhase.None:
                 break;
         }
 
-        if (this.enemies.Count <= 0 && this.friendlies.Count > 0)
+        // Remove and Destroy characters that are dead
+        List<int> charactersToRemove = new List<int>();
+        for (int i = 0; i < this.friendlies.Count; ++i)
         {
-            EndChildGame();
+            if (this.friendlies[i].currentHealth <= 0)
+            {
+                charactersToRemove.Add(i);
+            }
+        }
+        for (int i = 0; i < charactersToRemove.Count; ++i)
+        {
+            this.friendlies[charactersToRemove[i]].Die();
+            this.friendlies.RemoveAt(charactersToRemove[i]);
+        }
+
+        // Check win condition
+        if (this.enemy.friendlies.Count <= 0 && this.friendlies.Count > 0)
+        {
             StartCoroutine(FindObjectOfType<GameManager>().EndGame(this));
         }
     }

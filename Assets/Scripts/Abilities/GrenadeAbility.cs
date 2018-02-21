@@ -37,12 +37,12 @@ public class GrenadeAbility : Ability
                 owner.owner.friendlies[i].TakeDamage((int)(0.6 * NadeDamage * (1 / distanceToNade)));
             }
         }
-        for (int i = 0; i < owner.owner.enemies.Count; i++)
+        for (int i = 0; i < owner.owner.enemy.friendlies.Count; i++)
         {
-            float distanceToNade = Vector3.Distance(owner.owner.enemies[i].transform.position, dat_nade.transform.position);
+            float distanceToNade = Vector3.Distance(owner.owner.enemy.friendlies[i].transform.position, dat_nade.transform.position);
             if (distanceToNade < AsplodingHurtDistance)
             {
-                owner.owner.enemies[i].TakeDamage((int)(NadeDamage * (1 / distanceToNade)));
+                owner.owner.enemy.friendlies[i].TakeDamage((int)(NadeDamage * (1 / distanceToNade)));
             }
         }
         // create the explosion

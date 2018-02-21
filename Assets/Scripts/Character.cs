@@ -164,6 +164,7 @@ public class Character : MonoBehaviour {
 
         this.numMajorAbilities = maxMajorAbilities;
         this.numMinorAbilities = maxMinorAbilities;
+        this.hasHadTurn = false;
     }
 
     public void ExecuteAbility(string abilityName, Target target)
