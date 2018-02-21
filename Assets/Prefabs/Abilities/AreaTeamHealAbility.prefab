@@ -55,7 +55,7 @@ MonoBehaviour:
   targetType: 4
   type: 1
   useType: 0
-  range: 30
+  range: 11
   uses: 1
   abilityName: Team Heal
   healAmount: 0.35
