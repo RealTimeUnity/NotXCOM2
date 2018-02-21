@@ -121,6 +121,14 @@ public class HumanController : CharacterController
         return null;
     }
 
+    public void EndTurn()
+    {
+        for (int i = 0; i < this.friendlies.Count; ++i)
+        {
+            this.friendlies[i].hasHadTurn = true;
+        }
+    }
+
     new public void Update()
     {
         if (updating)

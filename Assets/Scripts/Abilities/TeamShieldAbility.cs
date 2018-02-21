@@ -34,7 +34,9 @@ public class TeamShieldAbility : Ability
                 else
                 {
                     SelfShieldAbility a = Instantiate(selfShieldAbilityPrefab).GetComponent<SelfShieldAbility>();
-                    owner.owner.friendlies[i].abilities.Add(a);
+                    a.Initialize(owner.owner.friendlies[i]);
+                    a.CreateShieldInstance();
+                    owner.owner.friendlies[i].passiveAbilities.Add(a);
                     a.AddShield();
                 }
             }

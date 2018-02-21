@@ -18,7 +18,8 @@ public abstract class Ability : MonoBehaviour
     public int uses;
     public string abilityName;
 
-    protected Character owner;
+    [HideInInspector]
+    public Character owner;
     protected int maxUses;
 
     public AbilityType GetAbilityType()
@@ -65,5 +66,10 @@ public abstract class Ability : MonoBehaviour
     public virtual void Execute(Target target)
     {
         --this.uses;
+    }
+
+    public virtual void Die()
+    {
+        Destroy(this.gameObject);
     }
 }

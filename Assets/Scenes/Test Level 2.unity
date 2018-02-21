@@ -1097,7 +1097,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraMoveSpeed: 15
   cameraRotationSpeed: 60
-  cameraZoomSpeed: 300
+  cameraZoomSpeed: 500
 --- !u!1001 &802296109
 Prefab:
   m_ObjectHideFlags: 0

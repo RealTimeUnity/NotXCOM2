@@ -87,8 +87,13 @@ public abstract class CharacterController : MonoBehaviour
         switch (this.phase)
         {
             case TurnPhase.Begin:
+                for (int i = 0; i < this.friendlies.Count; ++i)
+                {
+                    this.friendlies[i].ResetTurn();
+                }
+
                 this.phase = TurnPhase.SelectCharacter;
-                    break;
+                break;
             case TurnPhase.SelectCharacter:
                 int newSubjectIndex = this.GetSubjectIndex();
 
@@ -169,12 +174,8 @@ public abstract class CharacterController : MonoBehaviour
                 this.abilityConfirmed = false;
                 break;
             case TurnPhase.End:
-                for (int i = 0; i < this.friendlies.Count; ++i)
-                {
-                    this.friendlies[i].ResetTurn();
-                }
-
                 FindObjectOfType<GameManager>().FinishTurn();
+                this.subjectIndex = -1;
                 this.phase = TurnPhase.None;
                 break;
             case TurnPhase.None:
