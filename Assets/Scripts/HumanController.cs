@@ -91,6 +91,28 @@ public class HumanController : CharacterController
         return null;
     }
 
+    protected override void EndChildGame()
+    {
+        characterSelectUI.SetActive(false);
+        combatUI.SetActive(false);
+
+        for (int i = 0; i < friendlies.Count; ++i)
+        {
+            try
+            {
+                friendlies[i].Die();
+            }
+            catch (MissingReferenceException e)
+            {
+            }
+        }
+        friendlies.Clear();
+        this.selectUIUpdated = false;
+        selectedSubjectIndex = -1;
+        selectedAbilityName = null;
+        this.phase = TurnPhase.None;
+}
+
     protected override Character GetFriendlySelection()
     {
         Character character = GetCharacterClickedOn();

@@ -59,6 +59,7 @@ public class ButtonScript : MonoBehaviour {
     public void Initialize(HumanController hc)
     {
         hugh_man = hc;
+        this.curr_phase = CombatPhase.None;
     }
 
     int buttonRollCall()
@@ -165,17 +166,12 @@ public class ButtonScript : MonoBehaviour {
                 case CombatPhase.None:
                     if (hugh_man.subjectIndex != -1)
                     {
-                        this.backGround.gameObject.SetActive(true);
                         if (hugh_man.subjectIndex != prev_index)
                         {
                             updateInfo();
                             prev_index = hugh_man.subjectIndex;
                             curr_phase = CombatPhase.ActionSelection;
                         }
-                    }
-                    else
-                    {
-                        this.backGround.gameObject.SetActive(false);
                     }
                     break;
                 case CombatPhase.ActionSelection:
