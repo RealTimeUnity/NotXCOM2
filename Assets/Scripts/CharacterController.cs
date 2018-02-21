@@ -49,8 +49,7 @@ public abstract class CharacterController : MonoBehaviour
         for (int i = 0; i < this.friendlies.Count; ++i)
         {
             this.friendlies[i].hasHadTurn = false;
-            this.friendlies[i].numMajorAbilities = this.friendlies[i].maxMajorAbilities;
-            this.friendlies[i].numMinorAbilities = this.friendlies[i].maxMinorAbilities;
+            this.friendlies[i].ResetTurn();
         }
 
         FindObjectOfType<GameManager>().FinishTurn();
@@ -139,6 +138,7 @@ public abstract class CharacterController : MonoBehaviour
 
                 if (newSubjectIndex >= 0 && newSubjectIndex < this.friendlies.Count)
                 {
+                    this.friendlies[newSubjectIndex].ResetTurn();
                     this.subjectIndex = newSubjectIndex;
                     this.phase = TurnPhase.SelectAbility;
                 }
@@ -204,7 +204,6 @@ public abstract class CharacterController : MonoBehaviour
                 }
                 else
                 {
-                    this.friendlies[subjectIndex].ResetTurn();
                     this.phase = TurnPhase.SelectCharacter;
                 }
 

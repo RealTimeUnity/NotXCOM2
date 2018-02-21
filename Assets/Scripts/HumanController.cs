@@ -157,6 +157,7 @@ public class HumanController : CharacterController
                 if (!selectUIUpdated && this.friendlies.Count > 0)
                 {
                     characterSelectUI.GetComponentInParent<CharacterSelectUI>().UpdateList(this);
+                    combatUI.GetComponentInParent<ButtonScript>().Initialize(this);
                     this.selectUIUpdated = true;
                 }
 
@@ -166,7 +167,6 @@ public class HumanController : CharacterController
             case TurnPhase.SelectAbility:
                 characterSelectUI.SetActive(false);
                 combatUI.SetActive(true);
-                combatUI.GetComponentInParent<ButtonScript>().Initialize(this);
                 this.selectUIUpdated = false;
                 break;
             case TurnPhase.End:
