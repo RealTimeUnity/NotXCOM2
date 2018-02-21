@@ -12,7 +12,7 @@ public abstract class CharacterController : MonoBehaviour
 
     [HideInInspector]
     public List<Character> friendlies { get; set; }
-    protected List<Character> enemies;
+    public List<Character> enemies;
 
     [HideInInspector]
     public TurnPhase phase;
