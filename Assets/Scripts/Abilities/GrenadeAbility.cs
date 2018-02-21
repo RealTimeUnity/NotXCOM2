@@ -6,12 +6,11 @@ using UnityEngine.AI;
 public class GrenadeAbility : Ability
 {
     public GameObject GrenadePrefab, ExplosionPrefab;
-    public float TimeToAsplode = 6.0f;
-    public float AsplodingHurtDistance = 13.0f;
-    public float NadeDamage = 125.0f;
+    public float TimeToAsplode;
+    public float AsplodingHurtDistance;
+    public float NadeDamage;
     protected GameObject characterGameObject;
     protected GameObject dat_nade;
-    protected bool GrenadePrimed;
 
     public override void Execute(Target target)
     {
@@ -25,10 +24,22 @@ public class GrenadeAbility : Ability
 
         Vector3 ThrowVector = destination - characterGameObject.transform.position;
 
-        ThrowVector = ThrowVector * 18.0f;
+        ThrowVector = ThrowVector * 19.0f;
 
         GrenadeRB.AddForce(ThrowVector);
 
+        StartCoroutine(NadeAsplode(TimeToAsplode));
+    }
+
+
+    IEnumerator NadeAsplode(float explosion_time)
+    {
+        yield return new WaitForSeconds(explosion_time - 0.1f);
+
+        // create the explosion
+        GameObject my_nade_asplode = Instantiate(ExplosionPrefab, dat_nade.transform.position, Quaternion.identity);
+
+        // calculate damage to enemies & friendlies
         for (int i = 0; i < owner.owner.friendlies.Count; i++)
         {
             float distanceToNade = Vector3.Distance(owner.owner.friendlies[i].transform.position, dat_nade.transform.position);
@@ -42,22 +53,12 @@ public class GrenadeAbility : Ability
             float distanceToNade = Vector3.Distance(owner.owner.enemies[i].transform.position, dat_nade.transform.position);
             if (distanceToNade < AsplodingHurtDistance)
             {
-                owner.owner.enemies[i].TakeDamage((int)(NadeDamage * (1 / distanceToNade)));
+                owner.owner.enemies[i].TakeDamage((int)(NadeDamage * (1/System.Math.Pow(distanceToNade, (1.0/3.0)))));
             }
         }
-        // create the explosion
-        GameObject my_nade_asplode = Instantiate(ExplosionPrefab, dat_nade.transform.position, Quaternion.identity);
-        // set the heal particles to be destroyed in 4 seconds
+        // destroy nade and then the explosion object 5 seconds later
         Destroy(dat_nade, 0.01F);
         Destroy(my_nade_asplode, 5.0F);
-
-    }
-
-
-    IEnumerator NadeAsplode(float explosion_time)
-    {
-        //if grenade
-        yield return new WaitForSeconds(explosion_time - 0.1f);
-
     }
 }
+

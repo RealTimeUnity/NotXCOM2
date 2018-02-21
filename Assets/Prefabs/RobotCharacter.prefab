@@ -1585,7 +1585,7 @@ MonoBehaviour:
   - {fileID: 114859664898137064, guid: 0b985b58e76435b41bf4669bf12c915e, type: 2}
   - {fileID: 114971520155763130, guid: c15e54b53444bb247b67ab805f8d4e04, type: 2}
   - {fileID: 114691344448695854, guid: fcb9fb57511589f4d965786df21512ae, type: 2}
-  - {fileID: 114310492287025542, guid: 80900f5aac4d0984db43315be50cafc7, type: 2}
+  - {fileID: 114326739490024784, guid: fd84f4700df4e0b4e98ab64c74cdaae3, type: 2}
   abilities: []
   anim: {fileID: 95116062990209166}
   healthbarPrefab: {fileID: 1072393312336170, guid: 7106512b03bc25140a268a1f29ad4612,
