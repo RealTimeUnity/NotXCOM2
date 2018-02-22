@@ -31,11 +31,10 @@ public class CoverCheck : MonoBehaviour
         characterCamera.transform.parent.position=src.transform.position;
         float halfTheta = Mathf.Atan(4 / (src.transform.position - target.transform.position).magnitude);
         halfTheta = Mathf.Rad2Deg * halfTheta;
-        characterCamera.fov = halfTheta;
-        worldCamera.fov = halfTheta;
+        characterCamera.fieldOfView = halfTheta;
+        worldCamera.fieldOfView = halfTheta;
         int beforeLayer = target.layer;
         setLayer(8, target.transform);
-        Vector3 directionToLook = target.transform.position - src.transform.position;
         characterCamera.transform.LookAt(target.transform);
         worldCamera.transform.LookAt(target.transform);
         characterCamera.Render();
