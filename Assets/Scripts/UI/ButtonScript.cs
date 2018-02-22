@@ -36,8 +36,13 @@ public class ButtonScript : MonoBehaviour {
     protected bool buttonClicked = false;
     protected int current_button = -1;
 
-	void Start () {
-        hugh_man = null;
+    private void Start()
+    {
+        Initialize(null);
+    }
+
+    public void Initialize (HumanController hc) {
+        hugh_man = hc;
 
         backGround = this.GetComponentInChildren<Image>(true);
         Slider[] sliders = backGround.gameObject.GetComponentsInChildren<Slider>(true);
@@ -54,14 +59,12 @@ public class ButtonScript : MonoBehaviour {
         cancelText = text[7];
         nameText = text[0];
         healthSlider = sliders[0];
-    }
 
-    public void Initialize(HumanController hc)
-    {
-        hugh_man = hc;
-        this.curr_phase = CombatPhase.None;
-    }
+        this.prev_index = -1;
 
+        updateInfo();
+    }
+    
     int buttonRollCall()
     {
         int ret = 0;
@@ -89,43 +92,50 @@ public class ButtonScript : MonoBehaviour {
         hugh_man.phase = CharacterController.TurnPhase.SelectCharacter;
     }
 
-    void updateInfo()
+    public void updateInfo()
     {
-        current_char = hugh_man.friendlies[hugh_man.subjectIndex];
-
-        nameText.text = current_char.Name;
-
-        healthSlider.minValue = 0;
-        healthSlider.maxValue = current_char.MaxHealth;
-        healthSlider.value = current_char.currentHealth;
-
-        majorText.text = current_char.numMajorAbilities.ToString();
-        minorText.text = current_char.numMinorAbilities.ToString();
-
-        for (int i = 0; i < max_abilities; i++)
+        if (hugh_man && hugh_man.subjectIndex != -1)
         {
-            abilityTexts[i].text = "";
-            abilityButtons[i].interactable = false;
-            abilityButtons[i].onClick.RemoveAllListeners();
-        }
-        cancelButton.onClick.RemoveAllListeners();
-        cancelButton.onClick.AddListener(cancel);
-        cancelButton.interactable = false;
+            if (hugh_man.subjectIndex != prev_index)
+            {
+                prev_index = hugh_man.subjectIndex;
+                current_char = hugh_man.friendlies[hugh_man.subjectIndex];
 
-        endTurnButton.onClick.RemoveAllListeners();
-        endTurnButton.onClick.AddListener(endTurn);
-        endTurnButton.interactable = true;
+                nameText.text = current_char.Name;
 
-        //filling in values
-        for (int i = 0; i < current_char.abilities.Count; i++)
-        {
-            int index = i;
-            abilityTexts[i].text = current_char.abilities[i].abilityName;
-            useTexts[i].text = current_char.abilities[i].uses.ToString();
-            abilityButtons[i].onClick.AddListener(delegate { buttonOnClick(index); });
-            ability_count++;
-            abilityButtons[i].interactable = true;
-            abilityButtons[i].GetComponent<Image>().sprite = current_char.abilities[i].sprite;
+                healthSlider.minValue = 0;
+                healthSlider.maxValue = current_char.MaxHealth;
+                healthSlider.value = current_char.currentHealth;
+
+                majorText.text = current_char.numMajorAbilities.ToString();
+                minorText.text = current_char.numMinorAbilities.ToString();
+
+                for (int i = 0; i < max_abilities; i++)
+                {
+                    abilityTexts[i].text = "";
+                    abilityButtons[i].interactable = false;
+                    abilityButtons[i].onClick.RemoveAllListeners();
+                }
+                cancelButton.onClick.RemoveAllListeners();
+                cancelButton.onClick.AddListener(cancel);
+                cancelButton.interactable = false;
+
+                endTurnButton.onClick.RemoveAllListeners();
+                endTurnButton.onClick.AddListener(endTurn);
+                endTurnButton.interactable = true;
+
+                //filling in values
+                for (int i = 0; i < current_char.abilities.Count; i++)
+                {
+                    int index = i;
+                    abilityTexts[i].text = current_char.abilities[i].abilityName;
+                    useTexts[i].text = current_char.abilities[i].uses.ToString();
+                    abilityButtons[i].onClick.AddListener(delegate { buttonOnClick(index); });
+                    ability_count++;
+                    abilityButtons[i].interactable = true;
+                    abilityButtons[i].GetComponent<Image>().sprite = current_char.abilities[i].sprite;
+                }
+            }
         }
     }
 	
@@ -154,62 +164,56 @@ public class ButtonScript : MonoBehaviour {
     {
         if (hugh_man != null)
         {
+            updateInfo();
+
             if (current_char != null)
             {
                 healthSlider.value = current_char.currentHealth;
                 majorText.text = current_char.numMajorAbilities.ToString();
                 minorText.text = current_char.numMinorAbilities.ToString();
-            }
 
-            switch (curr_phase)
-            {
-                case CombatPhase.None:
-                    if (hugh_man.subjectIndex != -1)
-                    {
-                        if (hugh_man.subjectIndex != prev_index)
+                switch (curr_phase)
+                {
+                    case CombatPhase.None:
+                        curr_phase = CombatPhase.ActionSelection;
+                        break;
+                    case CombatPhase.ActionSelection:
+                        if (hugh_man.subjectIndex == -1 || hugh_man.subjectIndex != prev_index)
                         {
-                            updateInfo();
-                            prev_index = hugh_man.subjectIndex;
-                            curr_phase = CombatPhase.ActionSelection;
+                            curr_phase = CombatPhase.None;
                         }
-                    }
-                    break;
-                case CombatPhase.ActionSelection:
-                    if (hugh_man.subjectIndex == -1 || hugh_man.subjectIndex != prev_index)
-                    {
+
+                        for (int i = 0; i < current_char.abilities.Count; i++)
+                        {
+                            Ability ability = current_char.GetAbility(abilityTexts[i].text);
+                            useTexts[i].text = ability.uses.ToString();
+                            if (ability.uses <= 0 || (ability.type == Ability.AbilityType.Major && current_char.numMajorAbilities <= 0) || (ability.type == Ability.AbilityType.Minor && current_char.numMinorAbilities <= 0))
+                            {
+                                abilityButtons[i].interactable = false;
+                            }
+                        }
+                        endTurnButton.interactable = true;
+                        break;
+                    case CombatPhase.TargetSelection:
+                        if (buttonRollCall() != 1)
+                        {
+                            for (int i = 0; i < max_abilities; i++)
+                            {
+                                abilityButtons[i].interactable = false;
+                            }
+                            abilityButtons[current_button].interactable = true;
+                        }
+
+                        cancelButton.interactable = true;
+                        endTurnButton.interactable = false;
+                        break;
+                    case CombatPhase.ActionExecution:
+                        //wait for an undetermined ammount of time
+                        cancelButton.interactable = false;
+                        prev_index = -1;
                         curr_phase = CombatPhase.None;
-                    }
-
-                    for (int i = 0; i < current_char.abilities.Count; i++)
-                    {
-                        Ability ability = current_char.GetAbility(abilityTexts[i].text);
-                        useTexts[i].text = ability.uses.ToString();
-                        if (ability.uses <= 0 || (ability.type == Ability.AbilityType.Major && current_char.numMajorAbilities <= 0) || (ability.type == Ability.AbilityType.Minor && current_char.numMinorAbilities <= 0))
-                        {
-                            abilityButtons[i].interactable = false;
-                        }
-                    }
-                    endTurnButton.interactable = true;
-                    break;
-                case CombatPhase.TargetSelection:
-                    if (buttonRollCall() != 1)
-                    {
-                        for (int i = 0; i < max_abilities; i++)
-                        {
-                            abilityButtons[i].interactable = false;
-                        }
-                        abilityButtons[current_button].interactable = true;
-                    }
-
-                    cancelButton.interactable = true;
-                    endTurnButton.interactable = false;
-                    break;
-                case CombatPhase.ActionExecution:
-                    //wait for an undetermined ammount of time
-                    cancelButton.interactable = false;
-                    prev_index = -1;
-                    curr_phase = CombatPhase.None;
-                    break;
+                        break;
+                }
             }
         }
     }

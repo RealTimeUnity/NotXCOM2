@@ -38,8 +38,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1344440636777860}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 50, y: 50, z: 50}
+  m_LocalPosition: {x: 0.5, y: 1, z: 0}
+  m_LocalScale: {x: 25, y: 25, z: 25}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -103,6 +103,7 @@ MonoBehaviour:
   range: 20
   uses: 5
   abilityName: Pistol
+  owner: {fileID: 0}
   Damage: 5
 --- !u!198 &198298144785376306
 ParticleSystem:

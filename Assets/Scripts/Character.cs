@@ -30,6 +30,8 @@ public class Character : MonoBehaviour {
 
     [HideInInspector]
     public List<Ability> abilities;
+    [HideInInspector]
+    public List<Ability> passiveAbilities;
 
     private NavMeshAgent agent;
     [SerializeField]
@@ -43,9 +45,9 @@ public class Character : MonoBehaviour {
 
     void Start()
     {
-        MaxHealth = 100;
-        currentHealth = 100;
+        currentHealth = MaxHealth;
         this.abilities = new List<Ability>();
+        this.passiveAbilities = new List<Ability>();
         for (int i = 0; i < this.abilityPrefabs.Count; ++i)
         {
             Ability ability = Instantiate(abilityPrefabs[i], this.gameObject.transform);
@@ -57,7 +59,7 @@ public class Character : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
 
-        mainCamera = FindObjectOfType<Camera>();
+        mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         healthbar = Instantiate(healthbarPrefab, this.gameObject.transform);
         healthbarPrefab.SetActive(true);
         healthbarValue = healthbar.GetComponentsInChildren<SpriteRenderer>()[1];
@@ -164,6 +166,13 @@ public class Character : MonoBehaviour {
 
         this.numMajorAbilities = maxMajorAbilities;
         this.numMinorAbilities = maxMinorAbilities;
+        this.hasHadTurn = false;
+
+        for (int i = 0; i < this.passiveAbilities.Count; i++)
+        {
+            passiveAbilities[i].Die();
+        }
+        this.passiveAbilities.Clear();
     }
 
     public void ExecuteAbility(string abilityName, Target target)
@@ -184,6 +193,26 @@ public class Character : MonoBehaviour {
 
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
+        SelfShieldAbility shield = null;
+        if (HasAbility("Self Shield"))
+        {
+            shield = GetAbility("Self Shield").GetComponent<SelfShieldAbility>();
+        }
+
+        for (int i = 0; i < this.passiveAbilities.Count; i++)
+        {
+            if (this.passiveAbilities[i].abilityName == "Self Shield")
+            {
+                shield = this.passiveAbilities[i].GetComponent<SelfShieldAbility>();
+                break;
+            }
+        }
+        
+        if (shield != null)
+        {
+            damage = shield.TakeDamage(damage);
+        }
+
+        currentHealth += damage;
     }
 }

@@ -17,7 +17,7 @@ public class HumanController : CharacterController
 
     public GameObject combatUI;
     public GameObject characterSelectUI;
-    
+
     public void SelectAbility(string name)
     {
         if (this.friendlies[this.subjectIndex].HasAbility(name))
@@ -83,36 +83,14 @@ public class HumanController : CharacterController
     protected override Character GetEnemySelection()
     {
         Character character = GetCharacterClickedOn();
-        if (this.enemies.Contains(character))
+        if (this.enemy.friendlies.Contains(character))
         {
             return character;
         }
 
         return null;
     }
-
-    protected override void EndChildGame()
-    {
-        characterSelectUI.SetActive(false);
-        combatUI.SetActive(false);
-
-        for (int i = 0; i < friendlies.Count; ++i)
-        {
-            try
-            {
-                friendlies[i].Die();
-            }
-            catch (MissingReferenceException e)
-            {
-            }
-        }
-        friendlies.Clear();
-        this.selectUIUpdated = false;
-        selectedSubjectIndex = -1;
-        selectedAbilityName = null;
-        this.phase = TurnPhase.None;
-}
-
+    
     protected override Character GetFriendlySelection()
     {
         Character character = GetCharacterClickedOn();
@@ -143,10 +121,21 @@ public class HumanController : CharacterController
         return null;
     }
 
+    public void EndTurn()
+    {
+        for (int i = 0; i < this.friendlies.Count; ++i)
+        {
+            this.friendlies[i].hasHadTurn = true;
+        }
+    }
+
     new public void Update()
     {
-        this.UpdateTurn();
-        this.UpdateVisuals();
+        if (updating)
+        {
+            this.UpdateTurn();
+            this.UpdateVisuals();
+        }
     }
 
     protected void UpdateVisuals()
@@ -157,6 +146,8 @@ public class HumanController : CharacterController
                 if (!selectUIUpdated && this.friendlies.Count > 0)
                 {
                     characterSelectUI.GetComponentInParent<CharacterSelectUI>().UpdateList(this);
+                    combatUI.GetComponentInParent<ButtonScript>().Initialize(this);
+                    combatUI.GetComponentInParent<ButtonScript>().updateInfo();
                     this.selectUIUpdated = true;
                 }
 
@@ -164,14 +155,15 @@ public class HumanController : CharacterController
                 characterSelectUI.SetActive(true);
                 break;
             case TurnPhase.SelectAbility:
+                combatUI.GetComponentInParent<ButtonScript>().updateInfo();
                 characterSelectUI.SetActive(false);
                 combatUI.SetActive(true);
-                combatUI.GetComponentInParent<ButtonScript>().Initialize(this);
                 this.selectUIUpdated = false;
                 break;
             case TurnPhase.End:
                 characterSelectUI.SetActive(false);
                 combatUI.SetActive(false);
+                this.selectUIUpdated = false;
 
                 MeshRenderer mr;
                 for (int i = 0; i < this.friendlies.Count; ++i)

@@ -11,6 +11,7 @@ public class CharacterSelectUI : MonoBehaviour {
 
     protected Text selectedNameText;
     protected Button continueButton;
+    protected Button endTurnButton;
 
     protected HumanController humanController;
     protected RectTransform content;
@@ -22,6 +23,7 @@ public class CharacterSelectUI : MonoBehaviour {
         activeButtons = new List<Button>();
 
         continueButton = GetComponentsInChildren<Button>(true)[0];
+        endTurnButton = GetComponentsInChildren<Button>(true)[1];
         selectedNameText = GetComponentsInChildren<Text>(true)[1];
         content = GetComponentsInChildren<RectTransform>(true)[8];
 
@@ -30,6 +32,10 @@ public class CharacterSelectUI : MonoBehaviour {
 	
 	public void UpdateList (HumanController humanController) {
         this.humanController = humanController;
+
+        endTurnButton.onClick.RemoveAllListeners();
+        endTurnButton.onClick.AddListener(delegate () { this.humanController.EndTurn(); });
+
         content.sizeDelta = new Vector2(content.sizeDelta.x, 100 * humanController.friendlies.Count);
         for (int i = 0; i < activeButtons.Count; ++i)
         {

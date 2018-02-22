@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1316551683975078}
   m_LocalRotation: {x: -0.7071068, y: 0.000000061817246, z: 0.000000061817246, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.5, y: 1, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
@@ -103,7 +103,8 @@ MonoBehaviour:
   range: 40
   uses: 1
   abilityName: Rifle
-  Damage: 20
+  owner: {fileID: 0}
+  Damage: 150
 --- !u!198 &198754759356544976
 ParticleSystem:
   m_ObjectHideFlags: 1

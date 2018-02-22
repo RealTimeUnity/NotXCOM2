@@ -24,12 +24,31 @@ public class SelfShieldAbility : Ability {
         shieldInstance.SetActive(true);
     }
 
+    public void CreateShieldInstance()
+    {
+        shieldInstance = Instantiate(shieldPrefab, owner.transform);
+        shieldInstance.SetActive(true);
+    }
+
+    public int TakeDamage(int damage)
+    {
+        CurrentShieldHealth -= damage;
+
+        int result = 0;
+
+        if (CurrentShieldHealth < 0)
+        {
+            result = (int)CurrentShieldHealth;
+        }
+        
+        return result;
+    }
+
     public void Update()
     {
         if (owner != null && shieldInstance == null)
         {
-            shieldInstance = Instantiate(shieldPrefab, owner.transform);
-            shieldInstance.SetActive(true);
+            CreateShieldInstance();
         }
 
         //check if enemy turn over then set CurrentShieldHealth to 0
@@ -38,11 +57,16 @@ public class SelfShieldAbility : Ability {
             CurrentShieldHealth = 0;
         }
 
-        if (CurrentShieldHealth == 0)
+        if (CurrentShieldHealth <= 0)
         {
             shieldInstance.SetActive(false);
             ShieldActive = false;
         }
     }
-
+    
+    public override void Die()
+    {
+        Destroy(shieldInstance);
+        Destroy(this.gameObject);
+    }
 }

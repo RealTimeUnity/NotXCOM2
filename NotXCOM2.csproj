@@ -288,7 +288,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\LevelSelectButtons.cs" />
     <Compile Include="Assets\Scripts\Abilities\Ability.cs" />
     <Compile Include="Assets\Scripts\Abilities\AreaTeamHealAbility.cs" />
     <Compile Include="Assets\Scripts\Abilities\GrenadeAbility.cs" />
@@ -316,6 +315,7 @@
     <Compile Include="Assets\Scripts\Target.cs" />
     <Compile Include="Assets\Scripts\UI\ButtonScript.cs" />
     <Compile Include="Assets\Scripts\UI\CharacterSelectUI.cs" />
+    <Compile Include="Assets\Scripts\UI\LevelSelectButtons.cs" />
     <Compile Include="Assets\Scripts\UI\Menu.cs" />
   </ItemGroup>
   <ItemGroup>

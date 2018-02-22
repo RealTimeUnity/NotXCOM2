@@ -774,8 +774,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraMoveSpeed: 15
-  cameraRotationSpeed: 60
-  cameraZoomSpeed: 0
+  cameraRotationSpeed: 30
+  cameraZoomSpeed: 500
 --- !u!4 &911091576 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 93e86b57e56570d46814839867bf9a52, type: 2}

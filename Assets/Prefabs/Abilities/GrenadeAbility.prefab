@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4918440093437160}
   - component: {fileID: 114326739490024784}
   m_Layer: 0
-  m_Name: Grenade
+  m_Name: GrenadeAbility
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,6 +55,11 @@ MonoBehaviour:
   targetType: 1
   type: 1
   useType: 1
-  range: 30
-  uses: 3
+  range: 27
+  uses: 2
   abilityName: Grenade
+  GrenadePrefab: {fileID: 100010, guid: e889f3b0fa9bf2e4b87b0bd49cd501f8, type: 2}
+  ExplosionPrefab: {fileID: 100010, guid: c91c19a834a2e7a499c22f8d820d4d92, type: 2}
+  TimeToAsplode: 4
+  AsplodingHurtDistance: 11
+  NadeDamage: 85
