@@ -15,13 +15,29 @@ public class CoverCheck : MonoBehaviour
         //getShoot(null, null);
     }
 
+    public void setLayer(int num,Transform t)
+    {
+        for (int i = 0; i < t.childCount; i++)
+        {
+            Transform temp = t.GetChild(i);
+            temp.gameObject.layer = num;
+            setLayer(num, temp);
+        }
+    }
+
     public int getShoot(GameObject target, GameObject src)
     {
+        
+        characterCamera.transform.parent.position=src.transform.position;
+        float halfTheta = Mathf.Atan(4 / (src.transform.position - target.transform.position).magnitude);
+        halfTheta = Mathf.Rad2Deg * halfTheta;
+        characterCamera.fov = halfTheta;
+        worldCamera.fov = halfTheta;
         int beforeLayer = target.layer;
-        target.layer = 8;
+        setLayer(8, target.transform);
         Vector3 directionToLook = target.transform.position - src.transform.position;
-        characterCamera.transform.forward = directionToLook;
-        worldCamera.transform.forward = directionToLook;
+        characterCamera.transform.LookAt(target.transform);
+        worldCamera.transform.LookAt(target.transform);
         characterCamera.Render();
         Texture2D charCamTex = new Texture2D(256, 256);
         RenderTexture.active = characterCamera.activeTexture;
@@ -51,7 +67,8 @@ public class CoverCheck : MonoBehaviour
             }
         }
         print(hitCount + " " + charCount + " " + hitCount / ((float)charCount));
-        target.layer = beforeLayer;
+        //target.layer = beforeLayer;
+        setLayer(beforeLayer, target.transform);
         int returnVal = (int)(100 * (hitCount / ((float)charCount)));
         return returnVal;
     }
