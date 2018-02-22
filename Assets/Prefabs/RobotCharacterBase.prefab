@@ -1550,7 +1550,7 @@ Animator:
   m_GameObject: {fileID: 1697400185722320}
   m_Enabled: 0
   m_Avatar: {fileID: 9000000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  m_Controller: {fileID: 9100000, guid: f5370f04f5f848e458f2ecd88ffb3492, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1591,6 +1591,9 @@ MonoBehaviour:
   anim: {fileID: 95116062990209166}
   healthbarPrefab: {fileID: 1072393312336170, guid: 7106512b03bc25140a268a1f29ad4612,
     type: 2}
+  dead: 0
+  die: 0
+  renderer: {fileID: 137586600094483716}
 --- !u!136 &136982725883411738
 CapsuleCollider:
   m_ObjectHideFlags: 1

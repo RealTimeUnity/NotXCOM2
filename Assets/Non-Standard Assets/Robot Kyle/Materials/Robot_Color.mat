@@ -26,8 +26,17 @@ Material:
         m_Texture: {fileID: 2800000, guid: 0a0e8af2869fa45f78e25460db578482, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Mask:
+        m_Texture: {fileID: 2800000, guid: 83fb2316faefb0e418fd94644356248a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Modifier:
+        m_Texture: {fileID: 2800000, guid: 20d34f370089fb54b8b533eba0096d1d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _AmbientStrength: 0.1
+    - _AmbientStrength: 0.17
+    - _Die: 0
     - _Highlighted: 0
     - _OutlineScale: 1.2
     - _Shininess: 1

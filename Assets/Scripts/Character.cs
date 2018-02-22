@@ -42,6 +42,14 @@ public class Character : MonoBehaviour {
     protected SpriteRenderer healthbarValue;
     protected Camera mainCamera;
     protected float baseHealthbarScale;
+    [SerializeField]
+    private bool dead = false;
+    [SerializeField]
+    private float die = 0;
+    private float dx;
+
+    [SerializeField]
+    private SkinnedMeshRenderer renderer;
 
     void Start()
     {
@@ -66,13 +74,28 @@ public class Character : MonoBehaviour {
         baseHealthbarScale = healthbarValue.transform.localScale.x;
     }
 
+
     public void Die()
     {
-        Destroy(this.gameObject);
+        dead = true;
+    }
+    public void DieForReal()
+    {
+        Destroy(gameObject);
     }
 
     public void Update()
     {
+        renderer.material.SetFloat("_Die", die);
+
+        if(dead)
+        {
+            die = Mathf.SmoothDamp(die, 1.0f, ref dx, 1.5f);
+            if (die > 0.95f)
+                Destroy(gameObject);
+        }
+
+
         anim.SetFloat("Forward", agent.velocity.magnitude / 3.0f);
         healthbar.transform.rotation = mainCamera.transform.rotation;
         healthbarValue.transform.localScale = new Vector3((currentHealth / MaxHealth) * baseHealthbarScale, healthbarValue.transform.localScale.y, healthbarValue.transform.localScale.z);

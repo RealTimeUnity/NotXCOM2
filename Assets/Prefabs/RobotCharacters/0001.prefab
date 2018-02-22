@@ -1591,6 +1591,9 @@ MonoBehaviour:
   anim: {fileID: 95945234636051598}
   healthbarPrefab: {fileID: 1072393312336170, guid: 7106512b03bc25140a268a1f29ad4612,
     type: 2}
+  dead: 0
+  die: 0
+  renderer: {fileID: 137480427089037048}
 --- !u!136 &136684271400076058
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -11,6 +11,9 @@ Shader "Custom/Cel" {
 		_OutlineColor("OutlineColor", Color) = (0, 0, 0, 0)
 		_OutlineScale("OutlineScale", float) = 1.1
 		_Highlighted("HighLighted", int) = 1
+		_Mask("Mask", 2D) = "white" {}
+		_Modifier("Modifier", 2D) = "white" {}
+		_Die("Die", Range(0, 1)) = 0
 	}
 		SubShader
 	{
@@ -77,8 +80,11 @@ Shader "Custom/Cel" {
 	float _AmbientStrength;
 	float4 _SpecularColor;
 	float4 _Color;
-	sampler2D _MainTex;
+	sampler2D _MainTex;	
+	sampler2D _Mask;
 	float4 _MainTex_ST;
+	float _Die;
+	sampler2D _Modifier;
 
 	fixed4 _LightColor0;
 	fixed4 _ModelLightColor0;
@@ -101,6 +107,17 @@ Shader "Custom/Cel" {
 	fixed4 frag(v2f i) : SV_Target
 	{
 		fixed4 color = tex2D(_MainTex, i.uv) * _Color;// *_ModelLightColor0;
+		float mask = tex2D(_Mask, i.uv).r;
+		float val = mask - _Die;
+		if (mask < _Die)
+			discard;
+		if (val < 0.1)
+		{
+			color.rgb = tex2D(_Modifier, float2(0, max(0, val * 10.0f))).rgb;			
+			color *= 2;
+			return color;
+		}
+
 
 	float3 normal = normalize(i.worldNormal);
 	float3 lightDirection = normalize(_WorldSpaceLightPos0.xyz);
