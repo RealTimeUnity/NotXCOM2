@@ -48,10 +48,8 @@ public abstract class CharacterController : MonoBehaviour
         this.abilityExecuted = false;
     }
 
-    public void StartTurn()
+    public void FocusAverageLocation()
     {
-        this.phase = TurnPhase.Begin;
-
         Vector3 averagePosition = Vector3.zero;
         for (int i = 0; i < this.friendlies.Count; ++i)
         {
@@ -60,6 +58,12 @@ public abstract class CharacterController : MonoBehaviour
         averagePosition /= this.friendlies.Count;
 
         FindObjectOfType<CameraController>().FocusLocation(averagePosition);
+    }
+
+    public void StartTurn()
+    {
+        this.phase = TurnPhase.Begin;
+        FocusAverageLocation();
     }
     
     public void CreateFriendlyCharacters(SpawnPoint spawnPoint)
@@ -80,7 +84,7 @@ public abstract class CharacterController : MonoBehaviour
         this.enemy = enemyController;
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
         if (updating)
         {
@@ -92,6 +96,8 @@ public abstract class CharacterController : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
 
+        this.friendlies[this.subjectIndex].GetAbility(abilityName).DoneWaiting();
+
         this.abilityExecuted = false;
 
         if (this.friendlies[this.subjectIndex].HasMoreAbilities())
@@ -102,6 +108,12 @@ public abstract class CharacterController : MonoBehaviour
         {
             this.phase = TurnPhase.SelectCharacter;
         }
+
+        this.friendlies[this.subjectIndex].hasHadTurn = true;
+        this.abilityName = null;
+        this.target = null;
+        this.abilityCanceled = false;
+        this.abilityConfirmed = false;
     }
 
     protected void UpdateTurn()
@@ -179,18 +191,11 @@ public abstract class CharacterController : MonoBehaviour
                 }
                 break;
             case TurnPhase.Execution:
-                FindObjectOfType<CameraController>().FocusLocation(this.friendlies[this.subjectIndex].transform.position);
                 if (!this.abilityExecuted)
                 {
                     this.abilityExecuted = true;
 
                     this.friendlies[this.subjectIndex].ExecuteAbility(this.abilityName, this.target);
-
-                    this.friendlies[this.subjectIndex].hasHadTurn = true;
-                    this.abilityName = null;
-                    this.target = null;
-                    this.abilityCanceled = false;
-                    this.abilityConfirmed = false;
                 }
                 break;
             case TurnPhase.End:
@@ -206,15 +211,18 @@ public abstract class CharacterController : MonoBehaviour
         List<int> charactersToRemove = new List<int>();
         for (int i = 0; i < this.friendlies.Count; ++i)
         {
-            if (this.friendlies[i].currentHealth <= 0)
+            if (this.friendlies[i].currentHealth <= 0 && this.friendlies[i].initialized)
             {
                 charactersToRemove.Add(i);
             }
         }
         for (int i = 0; i < charactersToRemove.Count; ++i)
         {
-            this.friendlies[charactersToRemove[i]].Die();
-            this.friendlies.RemoveAt(charactersToRemove[i]);
+            if (charactersToRemove[i] < this.friendlies.Count)
+            {
+                this.friendlies[charactersToRemove[i]].Die();
+                this.friendlies.RemoveAt(charactersToRemove[i]);
+            }
         }
 
         // Check win condition

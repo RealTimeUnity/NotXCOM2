@@ -24,8 +24,6 @@ public class SelfShieldAbility : Ability {
     {
         CurrentShieldHealth += 100;
         shieldInstance.SetActive(true);
-
-        this.isDone = true;
     }
 
     public void CreateShieldInstance()

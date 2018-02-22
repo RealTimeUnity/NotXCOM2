@@ -11,7 +11,6 @@ public class Character : MonoBehaviour {
     [HideInInspector]
     public float currentHealth;
     public float MaxHealth;
-    public bool isHealthBarActive = true;
 
     [HideInInspector]
     public CharacterController owner;
@@ -48,6 +47,8 @@ public class Character : MonoBehaviour {
     private float die = 0;
     private float dx;
 
+    public bool initialized = false;
+
     [SerializeField]
     private SkinnedMeshRenderer renderer;
 
@@ -67,16 +68,18 @@ public class Character : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
 
-        mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        mainCamera = FindObjectOfType<CameraController>().GetComponent<Camera>();
         healthbar = Instantiate(healthbarPrefab, this.gameObject.transform);
         healthbarPrefab.SetActive(true);
         healthbarValue = healthbar.GetComponentsInChildren<SpriteRenderer>()[1];
         baseHealthbarScale = healthbarValue.transform.localScale.x;
+        initialized = true;
     }
 
 
     public void Die()
     {
+        this.healthbar.SetActive(false);
         dead = true;
     }
     public void DieForReal()

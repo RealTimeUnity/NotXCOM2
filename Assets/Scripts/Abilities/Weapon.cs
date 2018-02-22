@@ -33,6 +33,7 @@ public class Weapon : Ability {
     {
         yield return new WaitForSeconds(1);
 
+        FindObjectOfType<CameraController>().FocusLocation(target.GetCharacterTarget().transform.position);
         Vector3 targetPoint = new Vector3(target.GetCharacterTarget().transform.position.x, this.owner.transform.position.y,
              target.GetCharacterTarget().transform.position.z) - this.owner.transform.position;
         this.owner.transform.rotation = Quaternion.LookRotation(targetPoint, Vector3.up);

@@ -51,7 +51,13 @@ public abstract class Ability : MonoBehaviour
         {
             StartCoroutine(owner.owner.FinishAbility(this.waitSecondsAfterDone));
             isDone = false;
+            FindObjectOfType<CameraController>().FocusLocation(owner.transform.position);
         }
+    }
+
+    public virtual void DoneWaiting()
+    {
+
     }
 
     public void FixedUpdate()
@@ -76,8 +82,9 @@ public abstract class Ability : MonoBehaviour
                 destination = startingPoint.transform.position;
                 break;
         }
-        
-        float distance = Mathf.Round((start - destination).magnitude);
+
+        start.y = destination.y;
+        float distance = (start - destination).magnitude;
         return distance <= this.range;
     }
 

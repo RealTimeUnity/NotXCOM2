@@ -20,6 +20,7 @@ public class MoveAbility : Ability
     {
         if (destination != Vector3.zero)
         {
+            FindObjectOfType<CameraController>().FocusLocation(owner.transform.position);
             if (Vector3.Distance(destination, this.owner.gameObject.transform.position) < 2)
             {
                 this.isDone = true;

@@ -5,19 +5,7 @@ using UnityEngine;
 public class TeamShieldAbility : Ability
 {
     public GameObject selfShieldAbilityPrefab;
-
-    // Use this for initialization
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+    
     public override void Execute(Target target)
     {
         base.Execute(target);

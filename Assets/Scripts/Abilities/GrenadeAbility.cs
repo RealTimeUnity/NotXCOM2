@@ -11,6 +11,7 @@ public class GrenadeAbility : Ability
     public float NadeDamage;
     protected GameObject characterGameObject;
     protected GameObject dat_nade;
+    protected Rigidbody GrenadeRB = null;
 
     public override void Execute(Target target)
     {
@@ -20,7 +21,7 @@ public class GrenadeAbility : Ability
 
         dat_nade = Instantiate(GrenadePrefab, characterGameObject.transform.position + new Vector3(0, 2.5f, 0), Quaternion.identity);
 
-        Rigidbody GrenadeRB = dat_nade.GetComponent<Rigidbody>();
+        GrenadeRB = dat_nade.GetComponent<Rigidbody>();
 
         Vector3 ThrowVector = destination - characterGameObject.transform.position;
 
@@ -31,6 +32,21 @@ public class GrenadeAbility : Ability
         StartCoroutine(NadeAsplode(TimeToAsplode));
     }
 
+    private void Update()
+    {
+        if (GrenadeRB != null)
+        {
+            FindObjectOfType<CameraController>().FocusLocation(GrenadeRB.transform.position);
+        }
+    }
+
+    public override void DoneWaiting()
+    {
+        base.DoneWaiting();
+        GrenadeRB = null;
+        Destroy(dat_nade);
+        FindObjectOfType<CameraController>().FocusLocation(owner.transform.position);
+    }
 
     IEnumerator NadeAsplode(float explosion_time)
     {
@@ -57,7 +73,7 @@ public class GrenadeAbility : Ability
             }
         }
         // destroy nade and then the explosion object 5 seconds later
-        Destroy(dat_nade, 0.01F);
+        dat_nade.SetActive(false);
         Destroy(my_nade_asplode, 5.0F);
         this.isDone = true;
     }

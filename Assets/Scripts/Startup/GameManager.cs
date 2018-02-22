@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour {
     protected string LOAD_LEVEL_NAME = "LoadLevel";
 
     protected int playerNumber;
+
+    protected Vector3 cameraStartLocation;
     
     public void Start()
     {
@@ -29,6 +31,7 @@ public class GameManager : MonoBehaviour {
 
     public void SpawnWave(WaveLoader waveLoader)
     {
+        cameraStartLocation = FindObjectOfType<CameraController>().transform.localPosition;
         playerOne.gameObject.SetActive(true);
         playerTwo.gameObject.SetActive(true);
 
@@ -49,6 +52,7 @@ public class GameManager : MonoBehaviour {
 
     IEnumerator StartTurn(CharacterController player)
     {
+        FindObjectOfType<CameraController>().FocusLocation(cameraStartLocation);
         yield return new WaitForSeconds(2);
         screenText.gameObject.SetActive(false);
         player.StartTurn();
@@ -73,8 +77,8 @@ public class GameManager : MonoBehaviour {
 
         combatUI.SetActive(false);
         selectUI.SetActive(false);
-
-        yield return new WaitForSeconds(2);
+        
+        yield return new WaitForSeconds(5);
         screenText.gameObject.SetActive(false);
         SceneManager.LoadScene(MAIN_SCENE_NAME);
 

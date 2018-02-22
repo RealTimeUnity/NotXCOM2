@@ -140,51 +140,7 @@ public class HumanController : CharacterController
 
     protected void UpdateVisuals()
     {
-        switch (this.phase)
-        {
-            case TurnPhase.SelectCharacter:
-                if (!selectUIUpdated && this.friendlies.Count > 0)
-                {
-                    characterSelectUI.GetComponentInParent<CharacterSelectUI>().UpdateList(this);
-                    combatUI.GetComponentInParent<ButtonScript>().Initialize(this);
-                    combatUI.GetComponentInParent<ButtonScript>().updateInfo();
-                    this.selectUIUpdated = true;
-                }
 
-                combatUI.SetActive(false);
-                characterSelectUI.SetActive(true);
-                break;
-            case TurnPhase.SelectAbility:
-                combatUI.GetComponentInParent<ButtonScript>().updateInfo();
-                characterSelectUI.SetActive(false);
-                combatUI.SetActive(true);
-                this.selectUIUpdated = false;
-                break;
-            case TurnPhase.Execution:
-                characterSelectUI.SetActive(false);
-                combatUI.SetActive(false);
-                break;
-            case TurnPhase.End:
-                characterSelectUI.SetActive(false);
-                combatUI.SetActive(false);
-                this.selectUIUpdated = false;
-
-                MeshRenderer mr;
-                for (int i = 0; i < this.friendlies.Count; ++i)
-                {
-                    mr = this.friendlies[i].GetComponent<MeshRenderer>();
-                    if (mr == null)
-                    {
-                        this.friendlies[i].GetComponentInChildren<SkinnedMeshRenderer>().material.SetInt("_Highlighted", 0);
-                    }
-                    else
-                    {
-                        mr.material.SetInt("_Highlighted", 0);
-                    }
-                }
-                break;
-        }
-        
         // Range Indicator
         if (this.abilityName != null)
         {
@@ -219,6 +175,52 @@ public class HumanController : CharacterController
         {
             this.locationIndicator.SetActive(false);
             this.characterIndicator.SetActive(false);
+        }
+
+        switch (this.phase)
+        {
+            case TurnPhase.SelectCharacter:
+                if (!selectUIUpdated && this.friendlies.Count > 0)
+                {
+                    characterSelectUI.GetComponentInParent<CharacterSelectUI>().UpdateList(this);
+                    combatUI.GetComponentInParent<ButtonScript>().Initialize(this);
+                    combatUI.GetComponentInParent<ButtonScript>().updateInfo();
+                    this.selectUIUpdated = true;
+                }
+
+                combatUI.SetActive(false);
+                characterSelectUI.SetActive(true);
+                break;
+            case TurnPhase.SelectAbility:
+                combatUI.GetComponentInParent<ButtonScript>().updateInfo();
+                characterSelectUI.SetActive(false);
+                combatUI.SetActive(true);
+                this.selectUIUpdated = false;
+                break;
+            case TurnPhase.Execution:
+                characterSelectUI.SetActive(false);
+                combatUI.SetActive(false);
+                rangeIndicator.SetActive(false);
+                break;
+            case TurnPhase.End:
+                characterSelectUI.SetActive(false);
+                combatUI.SetActive(false);
+                this.selectUIUpdated = false;
+
+                MeshRenderer mr;
+                for (int i = 0; i < this.friendlies.Count; ++i)
+                {
+                    mr = this.friendlies[i].GetComponent<MeshRenderer>();
+                    if (mr == null)
+                    {
+                        this.friendlies[i].GetComponentInChildren<SkinnedMeshRenderer>().material.SetInt("_Highlighted", 0);
+                    }
+                    else
+                    {
+                        mr.material.SetInt("_Highlighted", 0);
+                    }
+                }
+                break;
         }
     }
 }
