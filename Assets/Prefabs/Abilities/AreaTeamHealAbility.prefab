@@ -51,13 +51,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18be3b1835e596e42bdd604e30159106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 245a10e7ea769fb4bbe60eacffffcf15, type: 3}
   targetType: 4
   type: 1
   useType: 0
   range: 11
   uses: 1
   abilityName: Team Heal
+  owner: {fileID: 0}
   healAmount: 0.35
   healParticleEffect: {fileID: 1068578206656008, guid: 6c75bda02b40fbd498b52c1a85f6a3ea,
     type: 2}

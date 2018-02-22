@@ -51,13 +51,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c209d1f9ae712fd4e97b203a83045c96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 6bfdb29fd6c381440b7f0a8256bde605, type: 3}
   targetType: 4
   type: 2
   useType: 0
   range: 1
   uses: 1
   abilityName: Self Shield
+  owner: {fileID: 0}
   ShieldActive: 0
   MaxShieldHealth: 100
   CurrentShieldHealth: 0

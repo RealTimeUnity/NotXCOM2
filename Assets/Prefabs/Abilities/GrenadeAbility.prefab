@@ -51,13 +51,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bfc5432572d81a4588a7b990d633ec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 0f5a91a6d38de4d4c96bc3118e822924, type: 3}
   targetType: 1
   type: 1
   useType: 1
   range: 27
   uses: 2
   abilityName: Grenade
+  owner: {fileID: 0}
   GrenadePrefab: {fileID: 100010, guid: e889f3b0fa9bf2e4b87b0bd49cd501f8, type: 2}
   ExplosionPrefab: {fileID: 100010, guid: c91c19a834a2e7a499c22f8d820d4d92, type: 2}
   TimeToAsplode: 4

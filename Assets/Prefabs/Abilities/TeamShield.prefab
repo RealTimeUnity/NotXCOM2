@@ -51,12 +51,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c8fa67d11cf19841beeb662f692d200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 6bfdb29fd6c381440b7f0a8256bde605, type: 3}
   targetType: 4
   type: 1
   useType: 0
   range: 30
   uses: 1
   abilityName: Team Shield
+  owner: {fileID: 0}
   selfShieldAbilityPrefab: {fileID: 1974391447852890, guid: 0b985b58e76435b41bf4669bf12c915e,
     type: 2}
