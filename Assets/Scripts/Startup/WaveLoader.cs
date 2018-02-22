@@ -14,13 +14,16 @@ public class WaveLoader : MonoBehaviour {
 
     public SpawnPoint GetRandomSpawnPoint()
     {
-        int index = Random.Range(0, this.spawnPoints.Count - 1);
-        while (this.spawnPoints[index].isOccupied)
+        int i = 0;
+        for (; i < this.spawnPoints.Count; ++i)
         {
-            index = Random.Range(0, this.spawnPoints.Count - 1);
+            if (!this.spawnPoints[i].isOccupied == true)
+            {
+                break;
+            }
         }
 
-        this.spawnPoints[index].isOccupied = true;
-        return this.spawnPoints[index];
+        this.spawnPoints[i].isOccupied = true;
+        return this.spawnPoints[i];
     }
 }
