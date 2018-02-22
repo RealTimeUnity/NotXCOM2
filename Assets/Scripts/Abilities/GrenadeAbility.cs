@@ -59,6 +59,7 @@ public class GrenadeAbility : Ability
         // destroy nade and then the explosion object 5 seconds later
         Destroy(dat_nade, 0.01F);
         Destroy(my_nade_asplode, 5.0F);
+        this.isDone = true;
     }
 }
 

@@ -58,7 +58,7 @@ Shader "Custom/Cel" {
 		ENDCG
 	}
 
-		Cull Back
+		Cull Off
 		ZWrite On
 		Pass
 	{

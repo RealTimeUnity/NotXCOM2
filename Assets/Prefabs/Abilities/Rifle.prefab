@@ -103,6 +103,7 @@ MonoBehaviour:
   range: 40
   uses: 1
   abilityName: Rifle
+  waitSecondsAfterDone: 1
   owner: {fileID: 0}
   Damage: 150
 --- !u!198 &198754759356544976

@@ -58,6 +58,7 @@ MonoBehaviour:
   range: 1
   uses: 1
   abilityName: Self Shield
+  waitSecondsAfterDone: 4
   owner: {fileID: 0}
   ShieldActive: 0
   MaxShieldHealth: 100

@@ -7,6 +7,7 @@ public class AreaTeamHealAbility : Ability
 {
     public float healAmount = 0.35F;
     public GameObject healParticleEffect;
+    [HideInInspector]
     public float euler_x, euler_y, euler_z;
     protected GameObject characterGameObject;
 
@@ -41,5 +42,6 @@ public class AreaTeamHealAbility : Ability
                 Destroy(healParticles, 4.0F);
             }
         }
+        this.isDone = true;
     }
 }

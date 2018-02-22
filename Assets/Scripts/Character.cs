@@ -237,5 +237,10 @@ public class Character : MonoBehaviour {
         }
 
         currentHealth += damage;
+
+        if(currentHealth < 0)
+        {
+            currentHealth = 0;
+        }
     }
 }

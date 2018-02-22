@@ -41,5 +41,7 @@ public class TeamShieldAbility : Ability
                 }
             }
         }
+
+        this.isDone = true;
     }
 }

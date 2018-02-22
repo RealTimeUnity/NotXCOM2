@@ -16,12 +16,16 @@ public class SelfShieldAbility : Ability {
         base.Execute(target);
         CurrentShieldHealth = 100;
         shieldInstance.SetActive(true);
+
+        this.isDone = true;
     }
 
     public void AddShield()
     {
         CurrentShieldHealth += 100;
         shieldInstance.SetActive(true);
+
+        this.isDone = true;
     }
 
     public void CreateShieldInstance()

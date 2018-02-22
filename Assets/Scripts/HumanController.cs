@@ -160,6 +160,10 @@ public class HumanController : CharacterController
                 combatUI.SetActive(true);
                 this.selectUIUpdated = false;
                 break;
+            case TurnPhase.Execution:
+                characterSelectUI.SetActive(false);
+                combatUI.SetActive(false);
+                break;
             case TurnPhase.End:
                 characterSelectUI.SetActive(false);
                 combatUI.SetActive(false);

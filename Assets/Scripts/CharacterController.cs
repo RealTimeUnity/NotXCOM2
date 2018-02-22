@@ -27,6 +27,7 @@ public abstract class CharacterController : MonoBehaviour
     public Target target;
     protected bool abilityCanceled;
     protected bool abilityConfirmed;
+    protected bool abilityExecuted;
 
     public void Start()
     {
@@ -44,11 +45,21 @@ public abstract class CharacterController : MonoBehaviour
         this.target = null;
         this.abilityCanceled = false;
         this.abilityConfirmed = false;
+        this.abilityExecuted = false;
     }
 
     public void StartTurn()
     {
         this.phase = TurnPhase.Begin;
+
+        Vector3 averagePosition = Vector3.zero;
+        for (int i = 0; i < this.friendlies.Count; ++i)
+        {
+            averagePosition += this.friendlies[i].transform.position;
+        }
+        averagePosition /= this.friendlies.Count;
+
+        FindObjectOfType<CameraController>().FocusLocation(averagePosition);
     }
     
     public void CreateFriendlyCharacters(SpawnPoint spawnPoint)
@@ -74,6 +85,22 @@ public abstract class CharacterController : MonoBehaviour
         if (updating)
         {
             this.UpdateTurn();
+        }
+    }
+
+    public IEnumerator FinishAbility(int time)
+    {
+        yield return new WaitForSeconds(time);
+
+        this.abilityExecuted = false;
+
+        if (this.friendlies[this.subjectIndex].HasMoreAbilities())
+        {
+            this.phase = TurnPhase.SelectAbility;
+        }
+        else
+        {
+            this.phase = TurnPhase.SelectCharacter;
         }
     }
 
@@ -152,22 +179,19 @@ public abstract class CharacterController : MonoBehaviour
                 }
                 break;
             case TurnPhase.Execution:
-                this.friendlies[this.subjectIndex].ExecuteAbility(this.abilityName, this.target);
-
-                if (this.friendlies[this.subjectIndex].HasMoreAbilities())
+                FindObjectOfType<CameraController>().FocusLocation(this.friendlies[this.subjectIndex].transform.position);
+                if (!this.abilityExecuted)
                 {
-                    this.phase = TurnPhase.SelectAbility;
-                }
-                else
-                {
-                    this.phase = TurnPhase.SelectCharacter;
-                }
+                    this.abilityExecuted = true;
 
-                this.friendlies[this.subjectIndex].hasHadTurn = true;
-                this.abilityName = null;
-                this.target = null;
-                this.abilityCanceled = false;
-                this.abilityConfirmed = false;
+                    this.friendlies[this.subjectIndex].ExecuteAbility(this.abilityName, this.target);
+
+                    this.friendlies[this.subjectIndex].hasHadTurn = true;
+                    this.abilityName = null;
+                    this.target = null;
+                    this.abilityCanceled = false;
+                    this.abilityConfirmed = false;
+                }
                 break;
             case TurnPhase.End:
                 FindObjectOfType<GameManager>().FinishTurn();

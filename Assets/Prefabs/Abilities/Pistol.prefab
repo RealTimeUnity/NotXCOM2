@@ -103,6 +103,7 @@ MonoBehaviour:
   range: 20
   uses: 5
   abilityName: Pistol
+  waitSecondsAfterDone: 1
   owner: {fileID: 0}
   Damage: 5
 --- !u!198 &198298144785376306

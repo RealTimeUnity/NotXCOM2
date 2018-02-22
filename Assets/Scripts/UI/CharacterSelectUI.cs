@@ -93,6 +93,7 @@ public class CharacterSelectUI : MonoBehaviour {
     void SelectCharacter(int characterIndex)
     {
         this.selectedCharacter = characterIndex;
+        FindObjectOfType<CameraController>().FocusLocation(this.humanController.friendlies[selectedCharacter].transform.position);
         this.selectedNameText.text = humanController.friendlies[this.selectedCharacter].Name;
         MeshRenderer mr;
         for (int i = 0; i < humanController.friendlies.Count; ++i)

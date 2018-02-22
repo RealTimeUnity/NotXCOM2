@@ -58,6 +58,7 @@ MonoBehaviour:
   range: 11
   uses: 1
   abilityName: Team Heal
+  waitSecondsAfterDone: 4
   owner: {fileID: 0}
   healAmount: 0.35
   healParticleEffect: {fileID: 1068578206656008, guid: 6c75bda02b40fbd498b52c1a85f6a3ea,

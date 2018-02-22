@@ -415,6 +415,7 @@ MonoBehaviour:
   range: 15
   uses: 1
   abilityName: Flame thrower
+  waitSecondsAfterDone: 1
   owner: {fileID: 0}
   Damage: 50
 --- !u!198 &198505043944050798

@@ -17,10 +17,13 @@ public abstract class Ability : MonoBehaviour
     public int range;
     public int uses;
     public string abilityName;
+    public int waitSecondsAfterDone;
 
     [HideInInspector]
     public Character owner;
     protected int maxUses;
+    
+    protected bool isDone;
 
     public AbilityType GetAbilityType()
     {
@@ -29,6 +32,7 @@ public abstract class Ability : MonoBehaviour
 
     public void Initialize(Character owner)
     {
+        this.isDone = false;
         this.owner = owner;
         this.maxUses = uses;
     }
@@ -39,6 +43,20 @@ public abstract class Ability : MonoBehaviour
         {
             this.uses = maxUses;
         }
+    }
+
+    public virtual void DoneCallback()
+    {
+        if (isDone)
+        {
+            StartCoroutine(owner.owner.FinishAbility(this.waitSecondsAfterDone));
+            isDone = false;
+        }
+    }
+
+    public void FixedUpdate()
+    {
+        DoneCallback();
     }
 
     public bool IsTargetInRange(Character startingPoint, Target target)
@@ -65,6 +83,7 @@ public abstract class Ability : MonoBehaviour
 
     public virtual void Execute(Target target)
     {
+        this.isDone = false;
         --this.uses;
     }
 

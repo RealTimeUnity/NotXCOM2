@@ -5,12 +5,26 @@ using UnityEngine.AI;
 
 public class MoveAbility : Ability
 {
+    protected Vector3 destination = Vector3.zero;
+
     public override void Execute(Target target)
     {
         base.Execute(target);
-        Vector3 destination = target.GetLocationTarget();
+        destination = target.GetLocationTarget();
         
         NavMeshAgent agent = this.owner.GetComponent<NavMeshAgent>();
         agent.SetDestination(destination);
+    }
+
+    public void Update()
+    {
+        if (destination != Vector3.zero)
+        {
+            if (Vector3.Distance(destination, this.owner.gameObject.transform.position) < 2)
+            {
+                this.isDone = true;
+                this.destination = Vector3.zero;
+            }
+        }
     }
 }

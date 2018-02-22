@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-
 public class ButtonScript : MonoBehaviour {
     protected enum CombatPhase
     {
@@ -35,6 +34,8 @@ public class ButtonScript : MonoBehaviour {
     protected int ability_count = 0;
     protected bool buttonClicked = false;
     protected int current_button = -1;
+    protected CameraController camera;
+
 
     private void Start()
     {
@@ -54,8 +55,8 @@ public class ButtonScript : MonoBehaviour {
         endTurnButton = buttons[7];
         abilityTexts = new Text[] { text[1], text[4], text[7], text[10], text[13], text[16] };
         useTexts = new Text[] { text[3], text[6], text[9], text[12], text[15], text[18] };
-        majorText = text[22];
-        minorText = text[23];
+        majorText = text[23];
+        minorText = text[24];
         cancelText = text[7];
         nameText = text[0];
         healthSlider = sliders[0];

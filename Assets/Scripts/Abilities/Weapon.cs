@@ -29,34 +29,45 @@ public class Weapon : Ability {
 		return accuracy;
 	}
 
-    IEnumerator EndFire()
+    IEnumerator EndFire(Target target)
     {
         yield return new WaitForSeconds(1);
-        var mod = gameObject;
-        mod.SetActive(false);
-    }
 
-    // Attack Function
-    public override void Execute(Target target)
-    {
-        Vector3 targetPoint = new Vector3(target.GetCharacterTarget().transform.position.x, this.owner.transform.position.y, 
-            target.GetCharacterTarget().transform.position.z) - this.owner.transform.position;
+        Vector3 targetPoint = new Vector3(target.GetCharacterTarget().transform.position.x, this.owner.transform.position.y,
+             target.GetCharacterTarget().transform.position.z) - this.owner.transform.position;
         this.owner.transform.rotation = Quaternion.LookRotation(targetPoint, Vector3.up);
         var mod = gameObject;
         mod.SetActive(true);
         int dam = 0;
         int accuracy = Aim(target);
-		System.Random rand = new System.Random ();
-		int num = rand.Next (0, 100);
-		if(num < accuracy){
+        System.Random rand = new System.Random();
+        int num = rand.Next(0, 100);
+        if (num < accuracy)
+        {
             dam = Damage;
         }
         if (target.GetTargetType().Equals(Target.TargetType.Enemy))
         {
             target.GetCharacterTarget().TakeDamage(dam);
         }
+        this.isDone = true;
+    }
+
+    public override void DoneCallback()
+    {
+        if (isDone)
+        {
+            StartCoroutine(owner.owner.FinishAbility(this.waitSecondsAfterDone));
+            isDone = false;
+            this.gameObject.SetActive(false);
+        }
+    }
+
+    // Attack Function
+    public override void Execute(Target target)
+    {
         var exp = GetComponent<ParticleSystem>();
         exp.Play();
-        StartCoroutine(EndFire());
+        StartCoroutine(EndFire(target));
     }
 }
