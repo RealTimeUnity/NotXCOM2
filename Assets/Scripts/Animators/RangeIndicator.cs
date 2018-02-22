@@ -24,5 +24,9 @@ public class RangeIndicator : MonoBehaviour {
         {
             this.transform.localScale += new Vector3(speed * Time.deltaTime, speed * Time.deltaTime, speed * Time.deltaTime);
         }
+        else
+        {
+            this.transform.localScale = new Vector3(this.size, this.transform.localScale.y, this.size);
+        }
     }
 }

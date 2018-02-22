@@ -31,21 +31,6 @@ public class AiController : CharacterController
         return abilities[scoreInteger].abilityName;
     }
 
-    protected override void EndChildGame()
-    {
-        for (int i = 0; i < friendlies.Count; ++i)
-        {
-            try
-            {
-                friendlies[i].Die();
-            }
-            catch (MissingReferenceException e)
-            {
-            }
-        }
-        friendlies.Clear();
-    }
-
     protected override int GetSubjectIndex()
     {
         return this.subjectIndex + 1;
@@ -97,13 +82,13 @@ public class AiController : CharacterController
             int distance = 100000;
             Vector3 dir = Vector3.down;
             Vector3 temp = actor.GetComponent<Transform>().position;
-            for (int i = 0; i < enemies.Count; i++)
+            for (int i = 0; i < enemy.friendlies.Count; i++)
             {
-                int tempRange = (int)Vector3.Distance(temp, enemies[i].GetComponent<Transform>().position);
+                int tempRange = (int)Vector3.Distance(temp, enemy.friendlies[i].GetComponent<Transform>().position);
                 if (tempRange < distance)
                 {
                     distance = tempRange;
-                    dir = enemies[i].GetComponent<Transform>().position-temp;
+                    dir = enemy.friendlies[i].GetComponent<Transform>().position-temp;
 
                 }
             }
@@ -198,9 +183,9 @@ public class AiController : CharacterController
         {
             int maxValue = 0;
             Character primaryVictim=new Character();
-            for (int i = 0; i < enemies.Count; i++)
+            for (int i = 0; i < enemy.friendlies.Count; i++)
             {
-                Character victim = enemies[i];
+                Character victim = enemy.friendlies[i];
                 Target tempTarget=new Target();
                 tempTarget.SetTargetType(Target.TargetType.Enemy);
                 tempTarget.SetCharacterTarget(victim);
