@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour {
         playerOne.SetEnemy(playerTwo);
         playerTwo.SetEnemy(playerOne);
 
-        playerNumber = 1;
+        playerNumber = 2;
         FinishTurn();
     }
 

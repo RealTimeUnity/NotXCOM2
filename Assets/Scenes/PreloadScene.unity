@@ -121,7 +121,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 185804640}
-  - component: {fileID: 185804639}
   - component: {fileID: 185804638}
   m_Layer: 0
   m_Name: CoverCheckCam
@@ -141,33 +140,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 969d5d819d32eb64d9e125b30655e49c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterCamera: {fileID: 0}
-  worldCamera: {fileID: 0}
---- !u!114 &185804639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 185804637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4254d852615f31446b8fb38df53792d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  characterCamera: {fileID: 693169265}
+  worldCamera: {fileID: 980949378}
 --- !u!4 &185804640
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 185804637}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 428.7033, y: -20.539646, z: 17.562317}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 130.89215, y: -65.42972, z: -194.93286}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 693169262}
   - {fileID: 980949375}
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 1200615704}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &300340829
 Prefab:
@@ -859,6 +847,7 @@ Transform:
   - {fileID: 1029702482}
   - {fileID: 1905727582}
   - {fileID: 605135621}
+  - {fileID: 185804640}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
