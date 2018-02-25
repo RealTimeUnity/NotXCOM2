@@ -2483,21 +2483,26 @@ MonoBehaviour:
   Name: Jeff
   currentHealth: 0
   MaxHealth: 100
-  isHealthBarActive: 1
   owner: {fileID: 0}
   maxMajorAbilities: 0
-  maxMinorAbilities: 0
+  maxMinorAbilities: 2
   numMajorAbilities: 0
   numMinorAbilities: 0
   hasHadTurn: 0
   abilityPrefabs:
   - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
+  - {fileID: 114790512774520568, guid: cebeaab3b1a20a54ea17b0021b82a915, type: 2}
+  - {fileID: 114691344448695854, guid: fcb9fb57511589f4d965786df21512ae, type: 2}
   abilities:
   - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
   passiveAbilities: []
   anim: {fileID: 95082702612735508}
   healthbarPrefab: {fileID: 1072393312336170, guid: 7106512b03bc25140a268a1f29ad4612,
     type: 2}
+  dead: 0
+  die: 0
+  initialized: 0
+  renderer: {fileID: 137094655468231414}
 --- !u!136 &136903004362970320
 CapsuleCollider:
   m_ObjectHideFlags: 1

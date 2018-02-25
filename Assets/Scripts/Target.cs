@@ -11,6 +11,23 @@ public class Target
     private Character character = null;
     private Vector3 location = Vector3.zero;
 
+    public Target()
+    {
+
+    }
+
+    public Target(TargetType type, Character character)
+    {
+        this.type = type;
+        this.character = character;
+    }
+
+    public Target(Vector3 location)
+    {
+        this.type = TargetType.Location;
+        this.location = location;
+    }
+
     public TargetType GetTargetType()
     {
         return this.type;

@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour {
 
     protected Vector3 cameraStartLocation;
     
-    public void Start()
+    public void Awake()
     {
         playerNumber = 2;
         playerOne.gameObject.SetActive(false);
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour {
         playerOne.SetEnemy(playerTwo);
         playerTwo.SetEnemy(playerOne);
 
-        playerNumber = 2;
+        playerNumber = 1;
         FinishTurn();
     }
 

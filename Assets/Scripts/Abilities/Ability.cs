@@ -85,7 +85,7 @@ public abstract class Ability : MonoBehaviour
 
         start.y = destination.y;
         float distance = (start - destination).magnitude;
-        return distance <= this.range;
+        return distance - this.range <= 0.1;
     }
 
     public virtual void Execute(Target target)

@@ -1572,7 +1572,6 @@ MonoBehaviour:
   Name: 0010
   currentHealth: 0
   MaxHealth: 100
-  isHealthBarActive: 1
   owner: {fileID: 0}
   maxMajorAbilities: 1
   maxMinorAbilities: 2
@@ -1583,7 +1582,7 @@ MonoBehaviour:
   - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
   - {fileID: 114971520155763130, guid: c15e54b53444bb247b67ab805f8d4e04, type: 2}
   - {fileID: 114310492287025542, guid: 80900f5aac4d0984db43315be50cafc7, type: 2}
-  - {fileID: 114856719139927584, guid: d6d1c94b9039f5e44bae3d7a37594999, type: 2}
+  - {fileID: 114749925991694568, guid: e20eed14e17031c41ae1bf8a9690584b, type: 2}
   - {fileID: 114326739490024784, guid: fd84f4700df4e0b4e98ab64c74cdaae3, type: 2}
   - {fileID: 114859664898137064, guid: 0b985b58e76435b41bf4669bf12c915e, type: 2}
   abilities: []
@@ -1593,6 +1592,7 @@ MonoBehaviour:
     type: 2}
   dead: 0
   die: 0
+  initialized: 0
   renderer: {fileID: 137020860353953008}
 --- !u!136 &136868306216474434
 CapsuleCollider:

@@ -2483,21 +2483,26 @@ MonoBehaviour:
   Name: Joe
   currentHealth: 0
   MaxHealth: 100
-  isHealthBarActive: 1
   owner: {fileID: 0}
   maxMajorAbilities: 0
-  maxMinorAbilities: 1
+  maxMinorAbilities: 2
   numMajorAbilities: 0
   numMinorAbilities: 0
   hasHadTurn: 0
   abilityPrefabs:
   - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
+  - {fileID: 114563502326672070, guid: 47634aeb168bf2e419aae7b217451937, type: 2}
+  - {fileID: 114310492287025542, guid: 80900f5aac4d0984db43315be50cafc7, type: 2}
   abilities:
   - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
   passiveAbilities: []
   anim: {fileID: 95257872969857664}
   healthbarPrefab: {fileID: 1072393312336170, guid: 7106512b03bc25140a268a1f29ad4612,
     type: 2}
+  dead: 0
+  die: 0
+  initialized: 0
+  renderer: {fileID: 137914075594242430}
 --- !u!136 &136388882908462430
 CapsuleCollider:
   m_ObjectHideFlags: 1

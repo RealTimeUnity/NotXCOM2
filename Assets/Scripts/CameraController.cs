@@ -20,13 +20,15 @@ public class CameraController : MonoBehaviour {
     protected Quaternion initialRotation;
     protected Vector3 focusOffset;
 
-    private void Start()
+    private void Awake()
     {
         initialRotation = this.gameObject.transform.rotation;
         focusOffset = -this.gameObject.transform.forward * 20;
+        newLocation = Vector3.zero;
+        newRotation = Quaternion.identity;
     }
 
-    public void FixedUpdate()
+    public void Update()
     {
         if (isMoving)
         {

@@ -2483,21 +2483,26 @@ MonoBehaviour:
   Name: Joeff
   currentHealth: 0
   MaxHealth: 100
-  isHealthBarActive: 1
   owner: {fileID: 0}
   maxMajorAbilities: 0
-  maxMinorAbilities: 1
+  maxMinorAbilities: 2
   numMajorAbilities: 0
   numMinorAbilities: 0
   hasHadTurn: 0
   abilityPrefabs:
   - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
+  - {fileID: 114971520155763130, guid: c15e54b53444bb247b67ab805f8d4e04, type: 2}
+  - {fileID: 114844014787012006, guid: d6d1c94b9039f5e44bae3d7a37594999, type: 2}
   abilities:
   - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
   passiveAbilities: []
   anim: {fileID: 95680315838068888}
   healthbarPrefab: {fileID: 1072393312336170, guid: 7106512b03bc25140a268a1f29ad4612,
     type: 2}
+  dead: 0
+  die: 0
+  initialized: 0
+  renderer: {fileID: 137698617917436854}
 --- !u!136 &136918942620456940
 CapsuleCollider:
   m_ObjectHideFlags: 1

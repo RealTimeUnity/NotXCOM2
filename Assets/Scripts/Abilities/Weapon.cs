@@ -6,10 +6,12 @@ public class Weapon : Ability {
 
     public int Damage;
 
+    protected MeshRenderer mesh;
+
     void Start()//Initializes stats
     {
-        var mod = gameObject;
-        mod.SetActive(false);
+        mesh = GetComponent<MeshRenderer>();
+        mesh.enabled = false;
     }
 
 	public int Aim(Target target)
@@ -37,8 +39,7 @@ public class Weapon : Ability {
         Vector3 targetPoint = new Vector3(target.GetCharacterTarget().transform.position.x, this.owner.transform.position.y,
              target.GetCharacterTarget().transform.position.z) - this.owner.transform.position;
         this.owner.transform.rotation = Quaternion.LookRotation(targetPoint, Vector3.up);
-        var mod = gameObject;
-        mod.SetActive(true);
+        mesh.enabled = true;
         int dam = 0;
         int accuracy = Aim(target);
         System.Random rand = new System.Random();
@@ -60,15 +61,14 @@ public class Weapon : Ability {
         {
             StartCoroutine(owner.owner.FinishAbility(this.waitSecondsAfterDone));
             isDone = false;
-            this.gameObject.SetActive(false);
+            this.mesh.enabled = false;
         }
     }
 
     // Attack Function
     public override void Execute(Target target)
     {
-        var exp = GetComponent<ParticleSystem>();
-        exp.Play();
+        GetComponent<ParticleSystem>().Play();
         StartCoroutine(EndFire(target));
     }
 }

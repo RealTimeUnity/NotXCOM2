@@ -2483,7 +2483,6 @@ MonoBehaviour:
   Name: 
   currentHealth: 0
   MaxHealth: 0
-  isHealthBarActive: 1
   owner: {fileID: 0}
   maxMajorAbilities: 0
   maxMinorAbilities: 1
@@ -2498,6 +2497,10 @@ MonoBehaviour:
   anim: {fileID: 95977362781180038}
   healthbarPrefab: {fileID: 1072393312336170, guid: 7106512b03bc25140a268a1f29ad4612,
     type: 2}
+  dead: 0
+  die: 0
+  initialized: 0
+  renderer: {fileID: 137520336712815252}
 --- !u!136 &136191547353275602
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -6,20 +6,23 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Level One.unity
-    guid: c04ec9a90050adf4dac9f755940a1015
-  - enabled: 1
-    path: Assets/Scenes/Level Three.unity
-    guid: 180185eeb13ad7849a12674d50e2b19b
-  - enabled: 1
-    path: Assets/Scenes/Level Two.unity
-    guid: 54a279592f7e54747b5a7832d183b6d8
-  - enabled: 1
-    path: Assets/Scenes/LoadLevel.unity
-    guid: 548c9ab9e2c0f13419cf09cb36a7a8cb
+    path: Assets/Scenes/PreloadScene.unity
+    guid: f3a18c522f27fcc40aa13e0eace48a20
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 84b3b6f68cf94e547b04f0df9dd96770
   - enabled: 1
-    path: Assets/Scenes/PreloadScene.unity
-    guid: f3a18c522f27fcc40aa13e0eace48a20
+    path: Assets/Scenes/LoadLevel.unity
+    guid: 548c9ab9e2c0f13419cf09cb36a7a8cb
+  - enabled: 1
+    path: Assets/Scenes/Level One.unity
+    guid: c04ec9a90050adf4dac9f755940a1015
+  - enabled: 1
+    path: Assets/Scenes/Level Two.unity
+    guid: 54a279592f7e54747b5a7832d183b6d8
+  - enabled: 1
+    path: Assets/Scenes/Level Three.unity
+    guid: 180185eeb13ad7849a12674d50e2b19b
+  - enabled: 1
+    path: Assets/Scenes/Level Four.unity
+    guid: fc3a1d27320e68f41b1e58c08a6921ec

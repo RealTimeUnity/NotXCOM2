@@ -28,13 +28,7 @@ public abstract class CharacterController : MonoBehaviour
     protected bool abilityCanceled;
     protected bool abilityConfirmed;
     protected bool abilityExecuted;
-
-    public void Start()
-    {
-        this.friendlies = new List<Character>();
-        Initialize();
-    }
-
+    
     public void Initialize()
     {
         this.friendlies = new List<Character>();
@@ -55,7 +49,10 @@ public abstract class CharacterController : MonoBehaviour
         {
             averagePosition += this.friendlies[i].transform.position;
         }
-        averagePosition /= this.friendlies.Count;
+        if (this.friendlies.Count > 0)
+        {
+            averagePosition /= this.friendlies.Count;
+        }
 
         FindObjectOfType<CameraController>().FocusLocation(averagePosition);
     }
