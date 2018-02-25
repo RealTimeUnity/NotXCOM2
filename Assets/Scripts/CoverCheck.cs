@@ -66,7 +66,6 @@ public class CoverCheck : MonoBehaviour
             }
         }
         print(hitCount + " " + charCount + " " + hitCount / ((float)charCount));
-        //target.layer = beforeLayer;
         setLayer(beforeLayer, target.transform);
         int returnVal = (int)(100 * (hitCount / ((float)charCount)));
         return returnVal;
