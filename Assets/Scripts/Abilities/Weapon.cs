@@ -31,15 +31,25 @@ public class Weapon : Ability {
 		return accuracy;
 	}
 
-    IEnumerator EndFire(Target target)
+    IEnumerator Fire(Target target)
     {
+        // rotate
+        Vector3 targetPoint = new Vector3(target.GetCharacterTarget().transform.position.x, this.owner.transform.position.y,
+                   target.GetCharacterTarget().transform.position.z) - this.owner.transform.position;
+        this.owner.transform.rotation = Quaternion.LookRotation(targetPoint, Vector3.up);
+        this.mesh.enabled = true;
+
+        // move cam and wait
+        FindObjectOfType<CameraController>().FocusLocation(owner.transform.position);
         yield return new WaitForSeconds(1);
 
+        // start anim and wait
+        GetComponent<ParticleSystem>().Play();
+        yield return new WaitForSeconds(1);
+
+        // move cam to enemy and damage enemy
         FindObjectOfType<CameraController>().FocusLocation(target.GetCharacterTarget().transform.position);
-        Vector3 targetPoint = new Vector3(target.GetCharacterTarget().transform.position.x, this.owner.transform.position.y,
-             target.GetCharacterTarget().transform.position.z) - this.owner.transform.position;
-        this.owner.transform.rotation = Quaternion.LookRotation(targetPoint, Vector3.up);
-        mesh.enabled = true;
+        
         int dam = 0;
         int accuracy = Aim(target);
         System.Random rand = new System.Random();
@@ -53,6 +63,10 @@ public class Weapon : Ability {
             target.GetCharacterTarget().TakeDamage(dam);
         }
         this.isDone = true;
+
+        // wait and re focus owner
+        yield return new WaitForSeconds(2);
+        FindObjectOfType<CameraController>().FocusLocation(owner.transform.position);
     }
 
     public override void DoneCallback()
@@ -68,7 +82,6 @@ public class Weapon : Ability {
     // Attack Function
     public override void Execute(Target target)
     {
-        GetComponent<ParticleSystem>().Play();
-        StartCoroutine(EndFire(target));
+        StartCoroutine(Fire(target));
     }
 }

@@ -12,16 +12,12 @@ public class SelfHealAbility : Ability
     public override void Execute(Target target)
     {
         base.Execute(target);
-        Character destination = target.GetCharacterTarget();
 
         // Get character's gameobject to get position information
         characterGameObject = this.owner.gameObject;
-
-        NavMeshAgent agent = this.owner.GetComponent<NavMeshAgent>();
-        agent.SetDestination(destination.transform.position);
       
         // add heal amount to the player health
-        this.owner.currentHealth += healAmount;
+        this.owner.currentHealth += healAmount * this.owner.MaxHealth;
         if (this.owner.currentHealth > this.owner.MaxHealth)
         {
             this.owner.currentHealth = this.owner.MaxHealth;
