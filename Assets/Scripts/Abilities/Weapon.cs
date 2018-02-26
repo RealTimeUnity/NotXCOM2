@@ -24,7 +24,7 @@ public class Weapon : Ability {
 		else {
             accuracy = 0;
         }
-        accuracy = accuracy < 20 ? 0 : accuracy;
+        accuracy = accuracy < 30 ? 0 : accuracy;
 		return accuracy;
 	}
 
