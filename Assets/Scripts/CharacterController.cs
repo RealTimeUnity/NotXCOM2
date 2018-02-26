@@ -242,9 +242,10 @@ public abstract class CharacterController : MonoBehaviour
         switch (target.GetTargetType())
         {
             case Target.TargetType.Self:
-                if (this.friendlies[this.subjectIndex] != null)
+                character = GetSelfSelection();
+                if (character != null)
                 {
-                    target.SetCharacterTarget(this.friendlies[this.subjectIndex]);
+                    target.SetCharacterTarget(character);
                     return target;
                 }
                 break;
@@ -294,6 +295,8 @@ public abstract class CharacterController : MonoBehaviour
     protected abstract Vector3 GetLocationSelection();
 
     protected abstract Character GetEnemySelection();
+
+    protected abstract Character GetSelfSelection();
 
     protected abstract Character GetFriendlySelection();
 }

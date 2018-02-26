@@ -9,11 +9,16 @@ public class AiController : CharacterController
     List<Ability> abilities = new List<Ability>();
     List<Target> targets=new List<Target>();
     List<int> scores=new List<int>();
-    int scoreInteger;
+    int scoreInteger = -1;
 
     protected override string GetAbilityName()
     {
-         Character actor=this.friendlies[this.subjectIndex];
+        abilities = new List<Ability>();
+        targets = new List<Target>();
+        scores = new List<int>();
+        scoreInteger = -1;
+
+        Character actor=this.friendlies[this.subjectIndex];
          for(int i = 0; i < actor.abilities.Count; i++)
          {
              magicalAbilityScoreGeneration(actor.abilities[i], actor);
@@ -36,6 +41,19 @@ public class AiController : CharacterController
         return this.subjectIndex + 1;
     }
 
+    protected override Character GetSelfSelection()
+    {
+        if (targets[scoreInteger].GetTargetType() == Target.TargetType.Self)
+        {
+            this.ConfirmAbility();
+            return this.friendlies[this.subjectIndex];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
     protected override Vector3 GetLocationSelection()
     {
         if (targets[scoreInteger].GetTargetType() == Target.TargetType.Location)
@@ -55,6 +73,7 @@ public class AiController : CharacterController
     {
         if (targets[scoreInteger].GetTargetType()==Target.TargetType.Enemy)
         {
+            this.ConfirmAbility();
             return (targets[scoreInteger].GetCharacterTarget());
         }
         else
@@ -67,6 +86,7 @@ public class AiController : CharacterController
     {
         if (targets[scoreInteger].GetTargetType()==Target.TargetType.Friendly)
         {
+            this.ConfirmAbility();
             return (targets[scoreInteger].GetCharacterTarget());
         }
         else {
@@ -131,7 +151,14 @@ public class AiController : CharacterController
                 }
 
                 healCount = healCount * (9 / 10);
-                healValue = (healValue / healCount);
+                if (healCount != 0)
+                {
+                    healValue = (healValue / healCount);
+                }
+                else
+                {
+                    healValue = 0;
+                }
                 abilities.Add(ability);
                 targets.Add(new Target(Target.TargetType.Self, actor));
                 scores.Add((int)healValue);

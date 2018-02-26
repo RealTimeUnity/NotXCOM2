@@ -2484,7 +2484,7 @@ MonoBehaviour:
   currentHealth: 0
   MaxHealth: 100
   owner: {fileID: 0}
-  maxMajorAbilities: 0
+  maxMajorAbilities: 1
   maxMinorAbilities: 2
   numMajorAbilities: 0
   numMinorAbilities: 0

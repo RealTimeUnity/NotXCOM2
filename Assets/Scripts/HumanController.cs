@@ -80,6 +80,11 @@ public class HumanController : CharacterController
         return Vector3.zero;
     }
 
+    protected override Character GetSelfSelection()
+    {
+        return this.friendlies[this.subjectIndex];
+    }
+
     protected override Character GetEnemySelection()
     {
         Character character = GetCharacterClickedOn();
