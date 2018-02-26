@@ -56,7 +56,7 @@ MonoBehaviour:
   type: 2
   useType: 0
   range: 10
-  uses: 2
+  uses: 4
   abilityName: Move
   waitSecondsAfterDone: 1
   owner: {fileID: 0}
