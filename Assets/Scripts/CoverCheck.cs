@@ -58,7 +58,10 @@ public class CoverCheck : MonoBehaviour
                 if (!(characterCamera.backgroundColor == charCamTex.GetPixel(x, y)))
                 {
                     charCount++;
-                    if (worldCamTex.GetPixel(x, y) == charCamTex.GetPixel(x, y))
+                    //if (worldCamTex.GetPixel(x, y) == charCamTex.GetPixel(x, y))
+                    if((worldCamTex.GetPixel(x,y).r-charCamTex.GetPixel(x,y).r<10 && worldCamTex.GetPixel(x, y).r - charCamTex.GetPixel(x, y).r > -10) &&
+                       (worldCamTex.GetPixel(x,y).g-charCamTex.GetPixel(x,y).g<10 && worldCamTex.GetPixel(x, y).g - charCamTex.GetPixel(x, y).g > -10) &&
+                       (worldCamTex.GetPixel(x,y).b-charCamTex.GetPixel(x,y).b<10 && worldCamTex.GetPixel(x, y).b - charCamTex.GetPixel(x, y).b > -10))
                     {
                         hitCount++;
                     }
