@@ -16,18 +16,15 @@ public class Weapon : Ability {
 
 	public int Aim(Target target)
     {
-        int accuracy = GameObject.Find("CoverCheckCam").GetComponent<CoverCheck>().getShoot(target.GetCharacterTarget().gameObject,this.gameObject);
-		if(!IsTargetInRange(owner, target))
+        int accuracy = 0;
+		if(IsTargetInRange(owner, target))
 		{
-            float distance = Vector3.Distance(owner.transform.position, target.GetCharacterTarget().transform.position);
-            if (distance < (2 * range))
-			{
-				accuracy = (int)(((distance % range) / range) * 100);
-			}
-		}
+            accuracy = GameObject.Find("CoverCheckCam").GetComponent<CoverCheck>().getShoot(target.GetCharacterTarget().gameObject, this.gameObject);
+        }
 		else {
-			accuracy = 100;
-		}
+            accuracy = 0;
+        }
+        accuracy = accuracy < 20 ? 0 : accuracy;
 		return accuracy;
 	}
 
