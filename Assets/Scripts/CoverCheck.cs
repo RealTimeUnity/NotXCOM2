@@ -59,9 +59,9 @@ public class CoverCheck : MonoBehaviour
                 {
                     charCount++;
                     //if (worldCamTex.GetPixel(x, y) == charCamTex.GetPixel(x, y))
-                    if((worldCamTex.GetPixel(x,y).r-charCamTex.GetPixel(x,y).r<10 && worldCamTex.GetPixel(x, y).r - charCamTex.GetPixel(x, y).r > -10) &&
-                       (worldCamTex.GetPixel(x,y).g-charCamTex.GetPixel(x,y).g<10 && worldCamTex.GetPixel(x, y).g - charCamTex.GetPixel(x, y).g > -10) &&
-                       (worldCamTex.GetPixel(x,y).b-charCamTex.GetPixel(x,y).b<10 && worldCamTex.GetPixel(x, y).b - charCamTex.GetPixel(x, y).b > -10))
+                    if((worldCamTex.GetPixel(x,y).r-charCamTex.GetPixel(x,y).r< 0.05f && worldCamTex.GetPixel(x, y).r - charCamTex.GetPixel(x, y).r > -0.05f) &&
+                       (worldCamTex.GetPixel(x,y).g-charCamTex.GetPixel(x,y).g< 0.05f && worldCamTex.GetPixel(x, y).g - charCamTex.GetPixel(x, y).g > -0.05f) &&
+                       (worldCamTex.GetPixel(x,y).b-charCamTex.GetPixel(x,y).b< 0.05f && worldCamTex.GetPixel(x, y).b - charCamTex.GetPixel(x, y).b > -0.05f))
                     {
                         hitCount++;
                     }
