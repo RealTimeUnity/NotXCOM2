@@ -33,7 +33,13 @@ public class AiController : CharacterController
             }
         }
 
-         return abilities[scoreInteger].abilityName;
+        if (scoreInteger == -1)
+        {
+            this.phase = TurnPhase.SelectCharacter;
+            return null;
+        }
+
+        return abilities[scoreInteger].abilityName;
     }
 
     protected override int GetSubjectIndex()
@@ -222,18 +228,21 @@ public class AiController : CharacterController
                 {
                     Character victim = enemy.friendlies[i];
                     Target tempTarget = new Target(Target.TargetType.Enemy, victim);
-                    int hurtValue = 0;
-                    int accuracy = ((Weapon)actor.GetAbility(abilityName)).Aim(tempTarget);
-                    int damage = ((Weapon)actor.GetAbility(abilityName)).Damage;
-                    hurtValue = (accuracy / 100) * damage;
-                    if (damage > victim.currentHealth)
+                    if (ability.IsTargetInRange(actor, tempTarget))
                     {
-                        hurtValue = hurtValue * 2 + 10;
-                    }
-                    if (hurtValue > maxValue)
-                    {
-                        maxValue = hurtValue;
-                        primaryVictim = victim;
+                        int hurtValue = 0;
+                        int accuracy = ((Weapon)actor.GetAbility(abilityName)).Aim(tempTarget);
+                        int damage = ((Weapon)actor.GetAbility(abilityName)).Damage;
+                        hurtValue = (accuracy / 100) * damage;
+                        if (damage > victim.currentHealth)
+                        {
+                            hurtValue = hurtValue * 2 + 10;
+                        }
+                        if (hurtValue > maxValue)
+                        {
+                            maxValue = hurtValue;
+                            primaryVictim = victim;
+                        }
                     }
                 }
                 abilities.Add(ability);
