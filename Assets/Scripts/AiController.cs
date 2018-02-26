@@ -19,19 +19,19 @@ public class AiController : CharacterController
         scoreInteger = -1;
 
         Character actor=this.friendlies[this.subjectIndex];
-         for(int i = 0; i < actor.abilities.Count; i++)
-         {
-             magicalAbilityScoreGeneration(actor.abilities[i], actor);
-         }
-         int currentScore = 0;
-         for(int i = 0; i < scores.Count; i++)
-         {
-             if (currentScore < scores[i])
-             {
-                 currentScore = scores[i];
-                 scoreInteger = i;
-             }
-         }
+        for(int i = 0; i < actor.abilities.Count; i++)
+        {
+            magicalAbilityScoreGeneration(actor.abilities[i], actor);
+        }
+        int currentScore = 0;
+        for(int i = 0; i < scores.Count; i++)
+        {
+            if (currentScore < scores[i])
+            {
+                currentScore = scores[i];
+                scoreInteger = i;
+            }
+        }
 
          return abilities[scoreInteger].abilityName;
     }
