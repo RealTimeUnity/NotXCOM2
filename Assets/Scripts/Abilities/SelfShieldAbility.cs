@@ -68,6 +68,7 @@ public class SelfShieldAbility : Ability {
     
     public override void Die()
     {
+        shieldInstance.SetActive(false);
         Destroy(shieldInstance);
         Destroy(this.gameObject);
     }

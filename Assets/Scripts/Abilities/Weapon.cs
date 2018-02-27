@@ -62,7 +62,7 @@ public class Weapon : Ability {
         this.isDone = true;
 
         // wait and re focus owner
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
         FindObjectOfType<CameraController>().FocusLocation(owner.transform.position);
     }
 

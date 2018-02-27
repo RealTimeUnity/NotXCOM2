@@ -2492,7 +2492,7 @@ MonoBehaviour:
   abilityPrefabs:
   - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
   - {fileID: 114790512774520568, guid: cebeaab3b1a20a54ea17b0021b82a915, type: 2}
-  - {fileID: 114691344448695854, guid: fcb9fb57511589f4d965786df21512ae, type: 2}
+  - {fileID: 114971520155763130, guid: c15e54b53444bb247b67ab805f8d4e04, type: 2}
   abilities:
   - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
   passiveAbilities: []

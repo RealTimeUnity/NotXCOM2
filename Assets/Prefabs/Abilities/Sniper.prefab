@@ -106,7 +106,7 @@ MonoBehaviour:
   abilityName: Sniper
   waitSecondsAfterDone: 1
   owner: {fileID: 0}
-  Damage: 25
+  Damage: 100
 --- !u!198 &198515987254062294
 ParticleSystem:
   m_ObjectHideFlags: 1
